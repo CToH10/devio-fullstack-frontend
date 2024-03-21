@@ -107,7 +107,6 @@ button:disabled {
     @apply bg-green-1 border-green-1
  }
 
-
  .btn-green-outline:hover {
     @apply text-green-1 border-green-1
  }
@@ -126,5 +125,9 @@ button:disabled {
 
   .btn-green-outline:disabled {
     @apply border-grey-4 text-grey-4
+  }
+
+  .label {
+    @apply text-grey-1 font-bold
   }
 }

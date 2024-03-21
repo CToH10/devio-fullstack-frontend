@@ -1,7 +1,9 @@
+import { SearchBar } from "@/components/SearchBar";
 
 export default function Home() {
   return (
     <>
+      <SearchBar />
 
       <button className="btn-big btn-green" >Adicionar ao pedido</button>
 
@@ -18,6 +20,7 @@ export default function Home() {
       <input type="email" placeholder="I'm hooked on a feeling" />
 
       <textarea name="" id="" cols={30} rows={10} className="input-style resize-none" placeholder="Adicione uma observação ao pedido"></textarea>
+
 
     </>
   );
