@@ -1,17 +1,18 @@
-import { useState } from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { DesktopNav } from "../DesktopNav";
+import { useState } from 'react';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { DesktopNav } from '../DesktopNav';
 
-export const MobileNav = () => {
+export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <button className="btn-medium" onClick={() => setIsOpen(!isOpen)}>
+      <button
+        type="button"
+        className="btn-medium"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {isOpen ? (
-          <p className="text-whiteFixed">
-            X
-          </p>
-
+          <p className="text-whiteFixed">X</p>
         ) : (
           <GiHamburgerMenu className="text-whiteFixed" />
         )}
@@ -24,4 +25,4 @@ export const MobileNav = () => {
       )}
     </>
   );
-};
+}

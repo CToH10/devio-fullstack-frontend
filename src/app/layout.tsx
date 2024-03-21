@@ -1,17 +1,17 @@
-import { Header } from "@/components/Header";
-import { ApiProvider } from "@/context/apiContext";
-import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Poppins } from 'next/font/google';
+import { Header } from '@/components/Header';
+import { ApiProvider } from '@/context/apiContext';
+import './globals.css';
 
 const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"]
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 });
 
 export const metadata: Metadata = {
-  title: "Fast food",
-  description: "Order your next meal",
+  title: 'Fast food',
+  description: 'Order your next meal',
 };
 
 export default function RootLayout({

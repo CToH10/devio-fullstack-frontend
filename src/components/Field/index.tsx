@@ -1,5 +1,5 @@
-import { ChangeEvent } from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
+import { ChangeEvent } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface FieldProps {
   label: string;
@@ -15,10 +15,10 @@ interface FieldProps {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   defaultValue?: string | number | undefined;
-  labelClass?: string | undefined
+  labelClass?: string | undefined;
 }
-export const Field = ({
-  type = "text",
+export function Field({
+  type = 'text',
   placeholder,
   id,
   label,
@@ -31,12 +31,12 @@ export const Field = ({
   required,
   defaultValue,
   error,
-  labelClass
-}: FieldProps) => {
+  labelClass,
+}: FieldProps) {
   return (
     <>
       {label && (
-        <label htmlFor="" className={`label ${labelClass}`}>
+        <label htmlFor={id} className={`label ${labelClass}`}>
           {label}
         </label>
       )}
@@ -48,7 +48,7 @@ export const Field = ({
         aria-label={placeholder}
         {...register}
         disabled={disabled}
-        className={`w-full mb-8 ${className} ${!disabled && "shadow-webkit"}`}
+        className={`w-full mb-8 ${className} ${!disabled && 'shadow-webkit'}`}
         required={required}
         defaultValue={defaultValue}
         onInput={onChange}
@@ -58,4 +58,4 @@ export const Field = ({
       {error && <small className="error">{error}</small>}
     </>
   );
-};
+}

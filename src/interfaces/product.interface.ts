@@ -1,7 +1,7 @@
 export interface ProductInterface {
   category: string;
   combo: boolean;
-  cover_image:string;
+  cover_image: string;
   description: string;
   id: string;
   name: string;
@@ -9,8 +9,8 @@ export interface ProductInterface {
 }
 
 export interface ProductListObject {
-  data: ProductInterface[],
-  count: number,
+  data: ProductInterface[];
+  count: number;
   previousPage: string | undefined;
   nextPage: string | undefined;
 }
