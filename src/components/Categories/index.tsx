@@ -1,19 +1,65 @@
+'use client';
+
 import { GiFrenchFries } from 'react-icons/gi';
 import { IoFastFoodOutline, IoIceCreamOutline } from 'react-icons/io5';
 import { LuCupSoda } from 'react-icons/lu';
 import { CategoryCard } from './CategoryCard';
 
 const categoriesList = [
-  { name: 'drink', image: <LuCupSoda /> },
-  { name: 'combo', image: <IoFastFoodOutline /> },
-  { name: 'dessert', image: <IoIceCreamOutline /> },
-  { name: 'side', image: <GiFrenchFries /> },
+  {
+    name: 'drink',
+    image: (
+      <LuCupSoda
+        preserveAspectRatio="xMaxYMid"
+        style={{
+          width: '40px',
+          height: '40px',
+        }}
+      />
+    ),
+  },
+  {
+    name: 'combo',
+    image: (
+      <IoFastFoodOutline
+        preserveAspectRatio="xMaxYMid"
+        style={{
+          width: '40px',
+          height: '40px',
+        }}
+      />
+    ),
+  },
+  {
+    name: 'dessert',
+    image: (
+      <IoIceCreamOutline
+        preserveAspectRatio="xMaxYMid"
+        style={{
+          width: '40px',
+          height: '40px',
+        }}
+      />
+    ),
+  },
+  {
+    name: 'side',
+    image: (
+      <GiFrenchFries
+        preserveAspectRatio="xMaxYMid"
+        style={{
+          width: '40px',
+          height: '40px',
+        }}
+      />
+    ),
+  },
 ];
 
 export function Categories() {
   return (
-    <section className="categoriesSection w-4/5 max-w-[80%] bg-red-2 flex flex-row gap-7 overflow-auto scrollbar">
+    <ul className="categoriesSection w-full max-w-full flex flex-row gap-7 overflow-auto scrollbar py-3 px-1 lg:grid grid-cols-2 grid-rows-2 lg:gap-0 lg:gap-y-8 lg:place-items-center">
       {categoriesList.map(category => CategoryCard(category))}
-    </section>
+    </ul>
   );
 }
