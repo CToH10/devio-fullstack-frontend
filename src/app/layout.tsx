@@ -1,4 +1,5 @@
 import { Header } from "@/components/Header";
+import { ApiProvider } from "@/context/apiContext";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
@@ -21,12 +22,14 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={poppins.className}>
-        <div className="h-full w-full flex flex-col items-center justify-center gap-10">
-          <Header />
-          <main className="flex min-h-screen flex-col items-center justify-between gap-8 w-4/5">
-            {children}
-          </main>
-        </div>
+        <ApiProvider>
+          <div className="h-full w-full flex flex-col items-center justify-center gap-10">
+            <Header />
+            <main className="flex min-h-screen flex-col items-center justify-between gap-8 w-4/5">
+              {children}
+            </main>
+          </div>
+        </ApiProvider>
       </body>
     </html>
   );
