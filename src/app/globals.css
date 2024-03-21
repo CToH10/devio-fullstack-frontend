@@ -80,7 +80,7 @@ button:disabled {
   }
 
   .btn-medium {
-    @apply px-5 py-3 rounded-2xl text-btnMedium_14;
+    @apply px-4 py-1 rounded-lg font-medium;
   }
 
   .btn-small {
