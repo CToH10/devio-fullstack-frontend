@@ -1,9 +1,11 @@
+import { Categories } from '@/components/Categories';
 import { SearchBar } from '@/components/SearchBar';
 
 export default function Home() {
   return (
     <>
       <SearchBar />
+      <Categories />
 
       <button type="button" className="btn-big btn-green">
         Adicionar ao pedido
