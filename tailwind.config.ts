@@ -9,7 +9,12 @@ const config: Config = {
   ],
   theme: {
     colors: {
-      green: "#125C13",
+      green: {
+        1:"#0C400D",
+        2:"#125C13",
+        3:"#00A006",
+        4: "#E5F5E6"
+      },
       red: {
         1: "#D52727",
         2: "#FAE5E5"
@@ -33,13 +38,13 @@ const config: Config = {
       size_6_20: "1.25rem",
       size_7_16: "1rem",
       size_8_14: "0.875rem",
-      btnBig_16: "1rem", 
+      btnBig_16: "1rem",
       btnMedium_14: "0.875rem",
-      inputPlace_16: "1rem", 
+      inputPlace_16: "1rem",
       inputLabel_14: "0.875rem",
     },
   },
-  
+
   plugins: [],
 };
 export default config;
