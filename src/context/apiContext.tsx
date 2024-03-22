@@ -29,6 +29,7 @@ interface ApiProviderData {
   cart: ProductInterface[];
   addToCart: (product: ProductInterface) => void;
   removeFromCart: (id: string) => void;
+  emptyCart: () => void;
 }
 
 export const ApiContext = createContext<ApiProviderData>({} as ApiProviderData);
@@ -122,6 +123,10 @@ export function ApiProvider({ children }: Props) {
     }
   };
 
+  const emptyCart = () => {
+    setCart([]);
+  };
+
   return (
     <ApiContext.Provider
       value={useMemo(
@@ -139,6 +144,7 @@ export function ApiProvider({ children }: Props) {
           cart,
           addToCart,
           removeFromCart,
+          emptyCart,
         }),
         [
           getAllProducts,
@@ -154,6 +160,7 @@ export function ApiProvider({ children }: Props) {
           cart,
           addToCart,
           removeFromCart,
+          emptyCart,
         ],
       )}
     >

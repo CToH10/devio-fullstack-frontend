@@ -3,7 +3,7 @@
 import { useApi } from '@/context/apiContext';
 
 export function Cart() {
-  const { cart } = useApi();
+  const { cart, emptyCart } = useApi();
 
   return (
     <>
@@ -13,6 +13,7 @@ export function Cart() {
           type="button"
           className="btn-big btn-green-outline"
           disabled={cart.length === 0}
+          onClick={() => emptyCart()}
         >
           Cancelar
         </button>
