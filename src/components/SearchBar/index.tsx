@@ -12,7 +12,7 @@ export function SearchBar() {
         label="Seja bem vindo!"
         placeholder="O que você procura?"
         labelClass="text-size_3_32"
-        onChange={e => console.log(getAllProducts(e.target.value))}
+        onChange={e => getAllProducts(e.target.value)}
       />
     </section>
   );
