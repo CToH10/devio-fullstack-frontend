@@ -8,14 +8,14 @@ export interface ProductInterface {
   price: number;
 }
 
-export interface ProductListObject {
+export interface ProductListInterface {
   data: ProductInterface[];
   count: number;
   previousPage: string | undefined;
   nextPage: string | undefined;
 }
 
-export interface OrderType {
+export interface OrderInterface {
   client: string;
   comment: string | null;
   id: string;
@@ -32,7 +32,7 @@ export interface OrderType {
   status: string;
 }
 
-export interface OrderList {
+export interface OrderListInterface {
   count: number;
-  data: OrderType[];
+  data: OrderInterface[];
 }

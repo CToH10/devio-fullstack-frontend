@@ -1,5 +1,9 @@
+'use client';
+
+import { useApi } from '@/context/apiContext';
 import { ProductInterface } from '@/interfaces/product.interface';
 import Image from 'next/image';
+import { FaCheck } from 'react-icons/fa6';
 
 export function ProductCard({
   cover_image: image,
@@ -7,16 +11,31 @@ export function ProductCard({
   id,
   name,
   price,
+  category,
+  combo,
 }: ProductInterface) {
+  const { addToCart, cart, removeFromCart } = useApi();
+  const inCart = cart.some(prod => prod.id === id);
+
   return (
     <li
       key={id}
-      className="h-64 shadow flex flex-col items-center rounded-xl product-card w-52 max-w-52 md:m-auto lg:m-0"
+      className="h-64 shadow flex flex-col items-center rounded-xl product-card w-52 max-w-52 md:m-auto lg:m-0 relative"
     >
       <button
         type="button"
         className="h-64 flex flex-col items-center rounded-xl w-52 max-w-52 md:m-auto lg:m-0"
-        onClick={() => console.log(id)}
+        onClick={() =>
+          addToCart({
+            cover_image: image,
+            description,
+            id,
+            name,
+            price,
+            category,
+            combo,
+          })
+        }
       >
         <section className="w-full max-h-24 h-24 rounded-t-xl">
           <figure className="w-full h-full relative object-contain flex text-center rounded-t-xl">
@@ -45,6 +64,18 @@ export function ProductCard({
           </p>
         </section>
       </button>
+      {inCart && (
+        <button
+          type="button"
+          className="h-full w-full rounded-xl absolute top-0 left-0 z-50 bg-green-3 bg-opacity-55 backdrop-blur-[1px]"
+          onClick={() => removeFromCart(id)}
+        >
+          <FaCheck
+            color="white"
+            className="relative top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10"
+          />
+        </button>
+      )}
     </li>
   );
 }
