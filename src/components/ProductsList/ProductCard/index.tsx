@@ -8,10 +8,12 @@ export function ProductCard({
   name,
   price,
 }: ProductInterface) {
+  // ver como eu fiz o botão na categoria sem perder o brinquedo
+  // mais alto menos gordo nas telas maiores
   return (
     <li
       key={id}
-      className="w-54 h-64 shadow flex flex-col items-center rounded-xl product-card"
+      className="h-64 shadow flex flex-col items-center rounded-xl product-card w-52 max-w-52 md:m-auto lg:m-0"
     >
       <section className="w-full max-h-24 h-24 rounded-t-xl">
         <figure className="w-full h-full relative object-contain flex text-center rounded-t-xl">

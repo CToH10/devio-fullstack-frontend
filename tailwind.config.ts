@@ -9,6 +9,12 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    extend: {
+      gridTemplateColumns: {
+        '3P': 'repeat(3,273px)',
+        '4P': 'repeat(4, 208px)',
+      },
+    },
     colors: {
       green: {
         1: '#0C400D',
@@ -47,7 +53,6 @@ const config: Config = {
       inputLabel_14: '0.875rem',
     },
   },
-
   plugins: [],
 };
 export default config;
