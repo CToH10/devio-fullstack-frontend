@@ -137,4 +137,12 @@ image {
   .product-card {
     @apply [&:nth-child(n+9)]:bg-yellow [&:nth-child(n+5)]:bg-green-2 [&:nth-child(-n+4)]:bg-red-3
   }
+
+  .active {
+    @apply bg-green-1
+  }
+
+  .active:hover {
+    @apply bg-green-2 border-green-1
+  }
 }
