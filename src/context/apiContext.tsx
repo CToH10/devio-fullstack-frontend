@@ -4,6 +4,8 @@
 
 import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
 import {
+  OrderList,
+  OrderType,
   ProductInterface,
   ProductListObject,
 } from '@/interfaces/product.interface';
@@ -16,6 +18,8 @@ interface Props {
 interface ApiProviderData {
   getAllProducts: (search: string) => Promise<ProductListObject | undefined>;
   productsDisplay: ProductInterface[];
+  getCheckoutOrders: () => Promise<OrderList | undefined>;
+  checkoutOrders: OrderType[];
 }
 
 export const ApiContext = createContext<ApiProviderData>({} as ApiProviderData);
@@ -24,6 +28,7 @@ export function ApiProvider({ children }: Props) {
   const [productsDisplay, setProductsDisplay] = useState(
     [] as ProductInterface[],
   );
+  const [checkoutOrders, setCheckoutOrders] = useState([] as OrderType[]);
 
   const getAllProducts = async (
     search: string,
@@ -38,11 +43,27 @@ export function ApiProvider({ children }: Props) {
     }
   };
 
+  const getCheckoutOrders = async (): Promise<OrderList | undefined> => {
+    try {
+      const list = await api.get('checkout');
+
+      setCheckoutOrders(list.data.data);
+      return list.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <ApiContext.Provider
       value={useMemo(
-        () => ({ getAllProducts, productsDisplay }),
-        [getAllProducts, productsDisplay],
+        () => ({
+          getAllProducts,
+          productsDisplay,
+          checkoutOrders,
+          getCheckoutOrders,
+        }),
+        [getAllProducts, productsDisplay, checkoutOrders, getCheckoutOrders],
       )}
     >
       {children}
