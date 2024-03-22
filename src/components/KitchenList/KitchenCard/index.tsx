@@ -1,3 +1,4 @@
+import { useApi } from '@/context/apiContext';
 import { OrderType } from '@/interfaces/product.interface';
 import Image from 'next/image';
 import { FaCheck, FaX } from 'react-icons/fa6';
@@ -10,6 +11,7 @@ export function KitchenCard({
   status,
   product_orders: productOrderList,
 }: OrderType) {
+  const { orderReady, orderFinished } = useApi();
   return (
     <>
       <section
@@ -33,7 +35,7 @@ export function KitchenCard({
             <button
               type="button"
               className="btn-small btn-red-light"
-              onClick={() => console.log(id)}
+              onClick={() => orderFinished(id)}
             >
               <FaX />
             </button>
@@ -49,7 +51,7 @@ export function KitchenCard({
               <button
                 type="button"
                 className="btn-small btn-green-light"
-                onClick={() => console.log(id)}
+                onClick={() => orderReady(id)}
               >
                 <FaCheck />
               </button>

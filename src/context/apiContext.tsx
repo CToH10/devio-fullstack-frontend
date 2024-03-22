@@ -23,6 +23,9 @@ interface ApiProviderData {
   searchParam: string;
   preparing: OrderType[];
   ready: OrderType[];
+  orderReady: (id: string) => Promise<void>;
+  orderFinished: (id: string) => Promise<void>;
+  orderRefused: (id: string, reason?: string | undefined) => Promise<void>;
 }
 
 export const ApiContext = createContext<ApiProviderData>({} as ApiProviderData);
@@ -63,6 +66,40 @@ export function ApiProvider({ children }: Props) {
     }
   };
 
+  const orderReady = async (id: string) => {
+    try {
+      await api.patch(`orders/${id}`, { status: 'ready' });
+
+      getAvailableOrders();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const orderFinished = async (id: string) => {
+    try {
+      await api.patch(`orders/${id}`, { status: 'finished' });
+
+      getAvailableOrders();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const orderRefusedd = async (id: string, reason?: string | undefined) => {
+    try {
+      await api.patch(`orders/${id}`, {
+        status: 'ready',
+        reason_of_refusal: reason,
+      });
+
+      getAvailableOrders();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  // not implementing until modal to specify reason if wanted
+
   return (
     <ApiContext.Provider
       value={useMemo(
@@ -74,6 +111,9 @@ export function ApiProvider({ children }: Props) {
           searchParam,
           preparing,
           ready,
+          orderReady,
+          orderFinished,
+          orderRefusedd,
         }),
         [
           getAllProducts,
@@ -83,6 +123,9 @@ export function ApiProvider({ children }: Props) {
           searchParam,
           preparing,
           ready,
+          orderReady,
+          orderFinished,
+          orderRefusedd,
         ],
       )}
     >
