@@ -79,7 +79,7 @@ image {
     @apply bg-grey-6 text-grey-1 font-normal text-size_8_14 w-max px-2 py-3 rounded-md border-2 border-grey-6 outline-none h-12
   }
   .btn-big {
-    @apply px-7 h-12 rounded-2xl text-btnBig_16 min-w-min;
+    @apply px-7 h-12 rounded-2xl text-btnBig_16 min-w-min ;
   }
 
   .btn-medium {
@@ -91,7 +91,7 @@ image {
   }
 
  .btn-green {
-    @apply bg-green-2 text-whiteFixed w-max text-size_7_16 font-semibold border-2 border-green-2
+    @apply bg-green-2 text-whiteFixed text-size_7_16 font-semibold border-2 border-green-2
  }
 
  .btn-green-outline {

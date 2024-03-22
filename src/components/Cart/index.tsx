@@ -7,11 +7,13 @@ export function Cart() {
 
   return (
     <>
-      <p>{cart.length}</p>
-      <section className="flex flex-row w-full gap-8 justify-end">
+      <section className="w-full">
+        <p>Empty space for now</p>
+      </section>
+      <section className="flex flex-col lg:flex-row w-full gap-8 lg:justify-between lg:w-2/3 lg:self-end">
         <button
           type="button"
-          className="btn-big btn-green-outline"
+          className="btn-big btn-green-outline lg:w-5/12"
           disabled={cart.length === 0}
           onClick={() => emptyCart()}
         >
@@ -19,7 +21,7 @@ export function Cart() {
         </button>
         <button
           type="button"
-          className="btn-big btn-green"
+          className="btn-big btn-green lg:w-5/12"
           disabled={cart.length === 0}
         >
           Finalizar pedido
