@@ -39,7 +39,7 @@ const config: Config = {
       yellow: '#FFEB70',
     },
     fontSize: {
-      size_1_44: '2.75rem',
+      size_1_56: '3.5rem',
       size_2_36: '2.25rem',
       size_3_32: '2rem',
       size_4_28: '1.75rem',

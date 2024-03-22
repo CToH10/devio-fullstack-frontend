@@ -2,7 +2,6 @@
 
 'use client';
 
-import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
 import {
   OrderList,
   OrderType,
@@ -10,6 +9,7 @@ import {
   ProductListObject,
 } from '@/interfaces/product.interface';
 import { api } from '@/service/api';
+import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -45,7 +45,7 @@ export function ApiProvider({ children }: Props) {
 
   const getCheckoutOrders = async (): Promise<OrderList | undefined> => {
     try {
-      const list = await api.get('checkout');
+      const list = await api.get('orders/checkout');
 
       setCheckoutOrders(list.data.data);
       return list.data;
