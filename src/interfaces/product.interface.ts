@@ -21,7 +21,7 @@ export interface OrderType {
   id: string;
   created_at: string | Date;
   updated_at: string | Date;
-  products_orders: [
+  product_orders: [
     {
       product: Omit<ProductInterface, 'combo'>;
       quantity: number;

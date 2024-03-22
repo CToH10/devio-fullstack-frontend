@@ -34,6 +34,7 @@ const config: Config = {
         4: '#6F6F6F',
         5: '#BCBCBC',
         6: '#F4F4F4',
+        7: '#666666'
       },
       whiteFixed: '#FFFFFF',
       yellow: '#FFEB70',
@@ -47,6 +48,7 @@ const config: Config = {
       size_6_20: '1.25rem',
       size_7_16: '1rem',
       size_8_14: '0.875rem',
+      size_9_12: '0.75rem',
       btnBig_16: '1rem',
       btnMedium_14: '0.875rem',
       inputPlace_16: '1rem',

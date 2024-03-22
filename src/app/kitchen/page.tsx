@@ -1,3 +1,6 @@
+
+import { KitchenList } from '@/components/KitchenList';
+
 export default function Kitchen() {
-  return <h1>Kitchen</h1>;
+  return <KitchenList />;
 }

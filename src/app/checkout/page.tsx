@@ -6,8 +6,6 @@ import { useEffect } from 'react';
 export default function Checkout() {
   const { getAvailableOrders, preparing, ready } = useApi();
 
-
-
   useEffect(() => {
     getAvailableOrders();
   }, []);
