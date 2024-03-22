@@ -7,8 +7,10 @@ import {
   OrderListInterface,
   ProductInterface,
   ProductListInterface,
+  ProductOrderInterface,
 } from '@/interfaces/product.interface';
 import { api } from '@/service/api';
+import { useRouter } from 'next/navigation';
 import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
 
 interface Props {
@@ -26,10 +28,12 @@ interface ApiProviderData {
   orderReady: (id: string) => Promise<void>;
   orderFinished: (id: string) => Promise<void>;
   orderRefused: (id: string, reason?: string | undefined) => Promise<void>;
-  cart: ProductInterface[];
-  addToCart: (product: ProductInterface) => void;
+  cart: ProductOrderInterface[];
+  addToCart: (product: ProductOrderInterface) => void;
   removeFromCart: (id: string) => void;
   emptyCart: () => void;
+  makeOrder: () => Promise<OrderInterface | undefined>;
+  payingOrder: OrderInterface;
 }
 
 export const ApiContext = createContext<ApiProviderData>({} as ApiProviderData);
@@ -40,12 +44,15 @@ export function ApiProvider({ children }: Props) {
   );
   const [checkoutOrders, setCheckoutOrders] = useState([] as OrderInterface[]);
   const [searchParam, setSearchParam] = useState('');
-  const [cart, setCart] = useState([] as ProductInterface[]);
+  const [cart, setCart] = useState([] as ProductOrderInterface[]);
+  const [payingOrder, setPayingOrder] = useState({} as OrderInterface);
 
   const preparing = checkoutOrders.filter(
     order => order.status === 'preparing',
   );
   const ready = checkoutOrders.filter(order => order.status === 'ready');
+
+  const router = useRouter();
 
   const getAllProducts = async (
     search: string,
@@ -108,14 +115,23 @@ export function ApiProvider({ children }: Props) {
   };
   // not implementing until modal to specify reason if wanted
 
-  const addToCart = (product: ProductInterface) => {
-    if (!cart.some(prod => prod.id === product.id)) {
-      setCart([...cart, product]);
+  const addToCart = (item: ProductOrderInterface) => {
+    const cartProds = cart
+      .map(orderObj => orderObj.products)
+      .map(cartProd => cartProd.id);
+
+    const itemId = item.products.id;
+
+    if (!cartProds!.some(prod => prod === itemId)) {
+      setCart([...cart, item]);
     }
   };
 
   const removeFromCart = (id: string) => {
-    const index = cart.findIndex(prod => prod.id === id);
+    const cartProds = cart
+      .map(orderObj => orderObj.products)
+      .map(cartProd => cartProd.id);
+    const index = cartProds.findIndex(prod => prod === id);
 
     if (index !== -1) {
       const newCart = cart.toSpliced(index, 1);
@@ -125,6 +141,27 @@ export function ApiProvider({ children }: Props) {
 
   const emptyCart = () => {
     setCart([]);
+  };
+
+  const makeOrder = async () => {
+    try {
+      const requestBody = {
+        products: cart.map(ele => {
+          return { quantity: ele.quantity, products_id: ele.products.id };
+        }),
+      };
+      const order: OrderInterface = await (
+        await api.post('/orders', requestBody)
+      ).data;
+
+      setPayingOrder(order);
+
+      router.push('/');
+      emptyCart();
+      return order;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -145,6 +182,8 @@ export function ApiProvider({ children }: Props) {
           addToCart,
           removeFromCart,
           emptyCart,
+          makeOrder,
+          payingOrder,
         }),
         [
           getAllProducts,
@@ -161,6 +200,8 @@ export function ApiProvider({ children }: Props) {
           addToCart,
           removeFromCart,
           emptyCart,
+          makeOrder,
+          payingOrder,
         ],
       )}
     >

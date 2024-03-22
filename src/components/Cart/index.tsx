@@ -3,7 +3,7 @@
 import { useApi } from '@/context/apiContext';
 
 export function Cart() {
-  const { cart, emptyCart } = useApi();
+  const { cart, emptyCart, makeOrder } = useApi();
 
   return (
     <>
@@ -23,6 +23,7 @@ export function Cart() {
           type="button"
           className="btn-big btn-green lg:w-5/12"
           disabled={cart.length === 0}
+          onClick={() => makeOrder()}
         >
           Finalizar pedido
         </button>

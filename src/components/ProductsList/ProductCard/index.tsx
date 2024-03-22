@@ -15,7 +15,22 @@ export function ProductCard({
   combo,
 }: ProductInterface) {
   const { addToCart, cart, removeFromCart } = useApi();
-  const inCart = cart.some(prod => prod.id === id);
+  const inCart = cart
+    .map(orderObj => orderObj.products)
+    .map(cartProd => cartProd.id)
+    .some(cartId => cartId === id);
+  const productOrder = {
+    products: {
+      cover_image: image,
+      description,
+      id,
+      name,
+      price,
+      category,
+      combo,
+    },
+    quantity: 1,
+  };
 
   return (
     <li
@@ -25,17 +40,7 @@ export function ProductCard({
       <button
         type="button"
         className="h-64 flex flex-col items-center rounded-xl w-52 max-w-52 md:m-auto lg:m-0"
-        onClick={() =>
-          addToCart({
-            cover_image: image,
-            description,
-            id,
-            name,
-            price,
-            category,
-            combo,
-          })
-        }
+        onClick={() => addToCart(productOrder)}
       >
         <section className="w-full max-h-24 h-24 rounded-t-xl">
           <figure className="w-full h-full relative object-contain flex text-center rounded-t-xl">

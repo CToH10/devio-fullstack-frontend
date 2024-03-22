@@ -30,9 +30,15 @@ export interface OrderInterface {
   priceTotal: number;
   code: number;
   status: string;
+  reason_of_refusal: string | undefined;
 }
 
 export interface OrderListInterface {
   count: number;
   data: OrderInterface[];
 }
+
+export type RequestOrderInterface = Pick<
+  OrderInterface,
+  'product_orders' | 'comment'
+>;
