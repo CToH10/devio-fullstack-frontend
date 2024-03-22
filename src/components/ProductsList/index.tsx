@@ -20,7 +20,7 @@ export function ProductsList() {
         title="Produtos"
         description="Selecione um produto para adicionar ao seu pedido"
       />
-      <ul className="productsListing mt-3 w-full flex flex-col gap-4 items-center md:grid md:grid-cols-2 lg:grid-cols-3P xl:grid-cols-4P lg:justify-between">
+      <ul className="productsListing mt-3 w-full flex flex-col gap-4 items-center md:grid md:grid-cols-2 lg:grid-cols-3P xl:grid-cols-4P lg:justify-between max-h-96 overflow-auto scrollbar lg:max-h-full">
         {productsDisplay.map(product => (
           <ProductCard
             name={product.name}
