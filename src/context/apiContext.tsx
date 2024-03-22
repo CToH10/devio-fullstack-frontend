@@ -20,6 +20,7 @@ interface ApiProviderData {
   productsDisplay: ProductInterface[];
   getCheckoutOrders: () => Promise<OrderList | undefined>;
   checkoutOrders: OrderType[];
+  searchParam: string
 }
 
 export const ApiContext = createContext<ApiProviderData>({} as ApiProviderData);
@@ -29,10 +30,12 @@ export function ApiProvider({ children }: Props) {
     [] as ProductInterface[],
   );
   const [checkoutOrders, setCheckoutOrders] = useState([] as OrderType[]);
+  const [searchParam, setSearchParam] = useState('');
 
   const getAllProducts = async (
     search: string,
   ): Promise<ProductListObject | undefined> => {
+    setSearchParam(search);
     try {
       const list = await api.get(`products/${search}`);
       setProductsDisplay(list.data.data);
@@ -62,8 +65,9 @@ export function ApiProvider({ children }: Props) {
           productsDisplay,
           checkoutOrders,
           getCheckoutOrders,
+          searchParam
         }),
-        [getAllProducts, productsDisplay, checkoutOrders, getCheckoutOrders],
+        [getAllProducts, productsDisplay, checkoutOrders, getCheckoutOrders, searchParam],
       )}
     >
       {children}

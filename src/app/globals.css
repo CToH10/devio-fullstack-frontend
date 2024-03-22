@@ -145,4 +145,8 @@ image {
   .active:hover {
     @apply bg-green-2 border-green-1
   }
+
+  .active-card {
+    @apply text-green-3
+  }
 }
