@@ -60,7 +60,10 @@ export function ProductCard({
             </p>
           </section>
           <p className="font-semibold text-grey-1 text-size_6_20 absolute bottom-2">
-            {price}
+            {price.toLocaleString('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
           </p>
         </section>
       </button>
