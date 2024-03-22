@@ -19,14 +19,14 @@ export function ProductCard({
             src={image}
             alt={description}
             aria-label={description}
-            width={75}
-            height={120}
-            className="object-cover m-auto self-center mt-7"
+            width={110}
+            height={110}
+            className="object-cover m-auto self-center mt-7 relative z-50"
           />
           <figcaption className="hidden">{description}</figcaption>
         </figure>
       </section>
-      <section className="bg-whiteFixed rounded-t-lg w-full flex flex-col items-center justify-center h-40 px-3">
+      <section className="bg-whiteFixed rounded-t-lg w-full flex flex-col items-center justify-center h-40 px-3 relative">
         <section className="flex flex-col justify-between items-center w-full">
           <p className="font-semibold text-grey-1 text-size_6_20 max-w-full text-nowrap overflow-hidden text-ellipsis">
             {name}
@@ -35,7 +35,9 @@ export function ProductCard({
             {description.split(', ')[0]}
           </p>
         </section>
-        <p className="font-semibold text-grey-1 text-size_6_20">{price}</p>
+        <p className="font-semibold text-grey-1 text-size_6_20 absolute bottom-2">
+          {price}
+        </p>
       </section>
     </li>
   );
