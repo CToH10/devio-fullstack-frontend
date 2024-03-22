@@ -4,15 +4,12 @@ import { useApi } from '@/context/apiContext';
 import { useEffect } from 'react';
 
 export default function Checkout() {
-  const { checkoutOrders, getCheckoutOrders } = useApi();
+  const { getAvailableOrders, preparing, ready } = useApi();
 
-  const preparing = checkoutOrders.filter(
-    order => order.status === 'preparing',
-  );
-  const ready = checkoutOrders.filter(order => order.status === 'ready');
+
 
   useEffect(() => {
-    getCheckoutOrders();
+    getAvailableOrders();
   }, []);
 
   return (

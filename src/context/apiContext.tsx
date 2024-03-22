@@ -18,9 +18,11 @@ interface Props {
 interface ApiProviderData {
   getAllProducts: (search: string) => Promise<ProductListObject | undefined>;
   productsDisplay: ProductInterface[];
-  getCheckoutOrders: () => Promise<OrderList | undefined>;
+  getAvailableOrders: () => Promise<OrderList | undefined>;
   checkoutOrders: OrderType[];
-  searchParam: string
+  searchParam: string;
+  preparing: OrderType[];
+  ready: OrderType[];
 }
 
 export const ApiContext = createContext<ApiProviderData>({} as ApiProviderData);
@@ -31,6 +33,10 @@ export function ApiProvider({ children }: Props) {
   );
   const [checkoutOrders, setCheckoutOrders] = useState([] as OrderType[]);
   const [searchParam, setSearchParam] = useState('');
+  const preparing = checkoutOrders.filter(
+    order => order.status === 'preparing',
+  );
+  const ready = checkoutOrders.filter(order => order.status === 'ready');
 
   const getAllProducts = async (
     search: string,
@@ -46,7 +52,7 @@ export function ApiProvider({ children }: Props) {
     }
   };
 
-  const getCheckoutOrders = async (): Promise<OrderList | undefined> => {
+  const getAvailableOrders = async (): Promise<OrderList | undefined> => {
     try {
       const list = await api.get('orders/checkout');
 
@@ -64,10 +70,20 @@ export function ApiProvider({ children }: Props) {
           getAllProducts,
           productsDisplay,
           checkoutOrders,
-          getCheckoutOrders,
-          searchParam
+          getAvailableOrders,
+          searchParam,
+          preparing,
+          ready,
         }),
-        [getAllProducts, productsDisplay, checkoutOrders, getCheckoutOrders, searchParam],
+        [
+          getAllProducts,
+          productsDisplay,
+          checkoutOrders,
+          getAvailableOrders,
+          searchParam,
+          preparing,
+          ready,
+        ],
       )}
     >
       {children}
