@@ -123,7 +123,7 @@ image {
  }
 
  .btn-green:disabled {
-    @apply bg-grey-4 text-whiteFixed
+    @apply bg-grey-4 text-whiteFixed border-grey-4
   }
 
   .btn-green-outline:disabled {
