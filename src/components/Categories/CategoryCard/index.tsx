@@ -31,7 +31,7 @@ export function CategoryCard({
 
   return (
     <li
-      className={`categoryCard ${searchParam === name ? 'active-card' : ''}`}
+      className={`categoryCard hover:text-green-2 ${searchParam === name ? 'active-card' : ''}`}
       key={name}
     >
       <button
