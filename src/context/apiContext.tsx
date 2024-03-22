@@ -139,8 +139,13 @@ export function ApiProvider({ children }: Props) {
     }
   };
 
-  const emptyCart = () => {
+  const emptyCart = (payment?: boolean) => {
     setCart([]);
+    console.log(payment);
+
+    if (payment) {
+      router.push('/');
+    }
   };
 
   const makeOrder = async () => {
@@ -156,7 +161,7 @@ export function ApiProvider({ children }: Props) {
 
       setPayingOrder(order);
 
-      router.push('/');
+      router.push('/payment');
       emptyCart();
       return order;
     } catch (error) {
