@@ -21,38 +21,42 @@ export default function Checkout() {
         <h2 className="text-size_2_36 font-bold text-grey-1 sticky top-0 bg-whiteFixed">
           Preparando:
         </h2>
-        <section>
+        <ul>
           {preparing.length ? (
             preparing.map(client => (
-              <p className="text-size_1_56 font-bold text-grey-5 max-w-full overflow-hidden text-nowrap text-ellipsis">
-                {client.client}
-              </p>
+              <li key={client.id}>
+                <p className="text-size_1_56 font-bold text-grey-5 max-w-full overflow-hidden text-nowrap text-ellipsis">
+                  {client.client}
+                </p>
+              </li>
             ))
           ) : (
             <p className="text-size_1_56 font-bold text-grey-5">
               Nenhum pedido
             </p>
           )}
-        </section>
+        </ul>
       </section>
       <div className="border-2 bg-grey-1 rounded-lg h-1 border-grey-1 lg:min-h-[500px] lg:w-[5.6px]" />
       <section className="w-full lg:w-5/12 flex flex-col gap-2 min-h-72 lg:min-h-0 max-h-72 lg:max-h-[90%] overflow-auto scrollbar">
         <h2 className="text-size_2_36 font-bold text-grey-1 sticky top-0 bg-whiteFixed">
           Pronto:
         </h2>
-        <section>
+        <ul>
           {ready.length ? (
             ready.map(client => (
-              <p className="text-size_1_56 font-bold text-green-2 max-w-full overflow-hidden text-nowrap text-ellipsis animate-pulse">
-                {client.client}
-              </p>
+              <li key={client.id}>
+                <p className="text-size_1_56 font-bold text-green-2 max-w-full overflow-hidden text-nowrap text-ellipsis animate-pulse">
+                  {client.client}
+                </p>
+              </li>
             ))
           ) : (
             <p className="text-size_1_56 font-bold text-grey-5">
               Nenhum pedido
             </p>
           )}
-        </section>
+        </ul>
       </section>
     </section>
   );

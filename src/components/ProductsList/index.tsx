@@ -30,6 +30,7 @@ export function ProductsList() {
             cover_image={product.cover_image}
             id={product.id}
             combo={product.combo}
+            key={product.id}
           />
         ))}
       </ul>
