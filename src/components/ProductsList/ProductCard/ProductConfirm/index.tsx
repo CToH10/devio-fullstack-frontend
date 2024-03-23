@@ -49,6 +49,7 @@ export function ProductConfirm({
 
   const onSubmit = (data: ProdToCartType) => {
     addToCart(data);
+    onClose();
   };
 
   const quantity: number = watch('quantity');
