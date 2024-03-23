@@ -23,19 +23,18 @@ export function ProductConfirm({
   combo,
   onClose,
 }: ConfirmInterface) {
-  const quantity: number = 1;
-  const total: number = quantity * price;
-
   const { addToCart } = useApi();
 
   const {
     handleSubmit,
     register,
     formState: { errors },
+    watch,
   } = useForm<ProdToCartType>({
     resolver: zodResolver(prodToCartSchema),
     mode: 'onBlur',
     defaultValues: {
+      quantity: 1,
       products: {
         id,
         name,
@@ -49,9 +48,11 @@ export function ProductConfirm({
   });
 
   const onSubmit = (data: ProdToCartType) => {
-    // addToCart(data);
-    console.log(data);
+    addToCart(data);
   };
+
+  const quantity: number = watch('quantity');
+  const total: number = quantity * price;
   return (
     <>
       <section
