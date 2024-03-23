@@ -1,9 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
-export function ProductQuantityInput() {
+interface Props {
+  register?: UseFormRegisterReturn;
+
+  error?: string;
+}
+
+export function ProductQuantityInput({ register, error }: Props) {
   const [value, setValue] = useState(1);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const minusValue = () => {
     if (value - 1 > 0) {
@@ -27,9 +35,8 @@ export function ProductQuantityInput() {
       <button
         type="button"
         id="decrement-button"
-        disabled={value === 1}
         className="bg-green-2 border border-green-2 rounded-[50%] absolute z-20 p-3 h-9 focus:ring-none focus:outline-none disabled:bg-grey-4 disabled:border-grey-4"
-        onClick={() => minusValue()}
+        onClick={() => inputRef.current?.stepDown()}
       >
         <svg
           className="w-4 h-3 text-whiteFixed"
@@ -48,21 +55,20 @@ export function ProductQuantityInput() {
         </svg>
       </button>
       <input
+        {...register}
+        ref={inputRef}
         type="number"
         id="quantity-input"
         className="block w-full py-2.5 h-9 relative z-0 rounded-3xl pl-14 border-green-2"
-        defaultValue={value}
-        value={value}
+        step={1}
         min={1}
         max={20}
-        onInput={e => inputValue(Number(e.currentTarget.value))}
       />
       <button
         type="button"
         id="increment-button"
-        disabled={value === 20}
         className="bg-green-2 border border-green-2 rounded-[50%] right-0 absolute z-20 p-3 h-9 focus:ring-none focus:outline-none disabled:bg-grey-4 disabled:border-grey-4"
-        onClick={() => addValue()}
+        onClick={() => inputRef.current?.stepUp()}
       >
         <svg
           className="w-4 h-3 text-whiteFixed"
@@ -80,6 +86,7 @@ export function ProductQuantityInput() {
           />
         </svg>
       </button>
+      {error && <span className="error">{error}</span>}
     </div>
   );
 }
