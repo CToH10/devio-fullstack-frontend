@@ -1,6 +1,11 @@
+'use client';
+
+import { Modal } from '@/components/Modal';
+import { RefuseOrder } from '@/components/RefuseOrder';
 import { useApi } from '@/context/apiContext';
 import { OrderInterface } from '@/interfaces/product.interface';
 import Image from 'next/image';
+import { useState } from 'react';
 import { FaCheck, FaX } from 'react-icons/fa6';
 
 export function KitchenCard({
@@ -10,7 +15,8 @@ export function KitchenCard({
   status,
   product_orders: productOrderList,
 }: OrderInterface) {
-  const { orderReady, orderFinished } = useApi();
+  const { orderReady, orderFinished, orderRefused } = useApi();
+  const [show, setShow] = useState(false);
 
   return (
     <>
@@ -44,7 +50,7 @@ export function KitchenCard({
               <button
                 type="button"
                 className="btn-small btn-red-light"
-                onClick={() => console.log(id)}
+                onClick={() => setShow(true)}
               >
                 <FaX />
               </button>
@@ -74,6 +80,14 @@ export function KitchenCard({
               ),
           )}
         </section>
+      )}
+      {show && (
+        <Modal title="Motivo para recusar?" onClose={() => setShow(false)}>
+          <RefuseOrder
+            id={id}
+            onClose={() => setShow(false)}
+          />
+        </Modal>
       )}
     </>
   );

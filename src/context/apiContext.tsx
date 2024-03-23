@@ -9,7 +9,10 @@ import {
   ProductListInterface,
   ProductOrderInterface,
 } from '@/interfaces/product.interface';
-import { OrderUpdateRequestType } from '@/schema/productOrder.schema';
+import {
+  OrderUpdateRequestType,
+  RefusedOrderType,
+} from '@/schema/productOrder.schema';
 import { api } from '@/service/api';
 import { AxiosResponse } from 'axios';
 import { useRouter } from 'next/navigation';
@@ -74,7 +77,7 @@ interface ApiProviderData {
   ready: OrderInterface[];
   orderReady: (id: string) => Promise<void>;
   orderFinished: (id: string) => Promise<void>;
-  orderRefused: (id: string, reason?: string | undefined) => Promise<void>;
+  orderRefused: (id: string, reason: RefusedOrderType) => Promise<void>;
   cart: ProductOrderInterface[];
   addToCart: (product: ProductOrderInterface) => void;
   removeFromCart: (id: string) => void;
@@ -161,11 +164,11 @@ export function ApiProvider({ children }: Props) {
     }
   };
 
-  const orderRefused = async (id: string, reason?: string | undefined) => {
+  const orderRefused = async (id: string, reason: RefusedOrderType) => {
     try {
       await api.patch(`orders/${id}`, {
-        status: 'ready',
-        reason_of_refusal: reason,
+        status: 'refused',
+        ...reason,
       });
 
       getAvailableOrders();
@@ -173,7 +176,6 @@ export function ApiProvider({ children }: Props) {
       console.error(error);
     }
   };
-  // not implementing until modal to specify reason if wanted
 
   const addToCart = (item: ProductOrderInterface) => {
     const cartProds = cart

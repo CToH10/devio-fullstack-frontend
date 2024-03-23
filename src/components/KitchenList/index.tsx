@@ -30,6 +30,7 @@ export function KitchenList() {
                   created_at={order.created_at}
                   priceTotal={order.priceTotal}
                   updated_at={order.updated_at}
+                  reason_of_refusal={order.reason_of_refusal}
                 />
               </li>
             ))
@@ -52,7 +53,6 @@ export function KitchenList() {
                 <KitchenCard
                   client={order.client}
                   code={order.code}
-                  comment={order.comment}
                   product_orders={order.product_orders}
                   status={order.status}
                   key={order.id}
@@ -60,6 +60,7 @@ export function KitchenList() {
                   created_at={order.created_at}
                   priceTotal={order.priceTotal}
                   updated_at={order.updated_at}
+                  reason_of_refusal={order.reason_of_refusal}
                 />
               </li>
             ))

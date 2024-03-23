@@ -31,8 +31,14 @@ export const updateOrderSchema = z.object({
   client: z.string().max(120).nullable().default(''),
 });
 
+export const refuseOrderSchema = z.object({
+  reason_of_refusal: z.string().max(140),
+});
+
 export type ProdToCartType = z.infer<typeof prodToCartSchema>;
 
 export type ProductOrderRequestType = z.infer<typeof productOrderSchema>;
 
 export type OrderUpdateRequestType = z.infer<typeof updateOrderSchema>;
+
+export type RefusedOrderType = z.infer<typeof refuseOrderSchema>;
