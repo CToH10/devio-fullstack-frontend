@@ -1,17 +1,17 @@
 import { useApi } from '@/context/apiContext';
-import { OrderType } from '@/interfaces/product.interface';
+import { OrderInterface } from '@/interfaces/product.interface';
 import Image from 'next/image';
 import { FaCheck, FaX } from 'react-icons/fa6';
 
 export function KitchenCard({
   client,
   code,
-  comment,
   id,
   status,
   product_orders: productOrderList,
-}: OrderType) {
+}: OrderInterface) {
   const { orderReady, orderFinished } = useApi();
+
   return (
     <>
       <section
@@ -59,12 +59,20 @@ export function KitchenCard({
           )}
         </section>
       </section>
-      {comment && status !== 'ready' && (
+      {status !== 'ready' && productOrderList.some(prod => prod.comment) && (
         <section className="p-3 flex flex-col gap-2">
-          <h5 className="text-size_8_14 font-bold text-grey-1">Observações:</h5>
-          <p className="text-size_9_12 px-5 py-2 border-2 border-grey-2 border-opacity-50 rounded">
-            {comment}
-          </p>
+          <h5 className="text-size_8_14 font-bold text-grey-1">Observações:</h5>{' '}
+          {productOrderList.map(
+            prodOrder =>
+              prodOrder.comment && (
+                <p
+                  className="text-size_9_12 px-5 py-2 border-2 border-grey-2 border-opacity-50 rounded"
+                  key={prodOrder.product.id}
+                >
+                  {prodOrder.product.name} - {prodOrder.comment}
+                </p>
+              ),
+          )}
         </section>
       )}
     </>

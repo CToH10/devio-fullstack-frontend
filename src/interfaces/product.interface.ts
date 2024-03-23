@@ -8,6 +8,10 @@ export interface ProductInterface {
   price: number;
 }
 
+interface ProductRequestInterface extends ProductInterface {
+  comment: string | null;
+}
+
 export interface ProductListInterface {
   data: ProductInterface[];
   count: number;
@@ -16,13 +20,12 @@ export interface ProductListInterface {
 }
 
 export interface ProductOrderInterface {
-  products: ProductInterface;
+  products: ProductRequestInterface;
   quantity: number;
 }
 
 export interface OrderInterface {
   client: string;
-  comment: string | null;
   id: string;
   created_at: string | Date;
   updated_at: string | Date;
@@ -30,6 +33,7 @@ export interface OrderInterface {
     {
       product: Omit<ProductInterface, 'combo'>;
       quantity: number;
+      comment: string | null;
     },
   ];
   priceTotal: number;
@@ -43,7 +47,4 @@ export interface OrderListInterface {
   data: OrderInterface[];
 }
 
-export type RequestOrderInterface = Pick<
-  OrderInterface,
-  'product_orders' | 'comment'
->;
+export type RequestOrderInterface = Pick<OrderInterface, 'product_orders'>;

@@ -23,7 +23,6 @@ export function KitchenList() {
                 <KitchenCard
                   client={order.client}
                   code={order.code}
-                  comment={order.comment}
                   product_orders={order.product_orders}
                   status={order.status}
                   key={order.id}

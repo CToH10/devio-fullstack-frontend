@@ -2,6 +2,14 @@
 
 'use client';
 
+import {
+  OrderInterface,
+  OrderListInterface,
+  ProductInterface,
+  ProductListInterface,
+  ProductOrderInterface,
+} from '@/interfaces/product.interface';
+import { api } from '@/service/api';
 import { useRouter } from 'next/navigation';
 import {
   Dispatch,
@@ -12,14 +20,6 @@ import {
   useMemo,
   useState,
 } from 'react';
-import {
-  OrderInterface,
-  OrderListInterface,
-  ProductInterface,
-  ProductListInterface,
-  ProductOrderInterface,
-} from '@/interfaces/product.interface';
-import { api } from '@/service/api';
 
 interface Props {
   children: ReactNode;
@@ -28,7 +28,7 @@ interface Props {
 const mockOrder = {
   client: 'Nome não informado',
   code: 36,
-  comment: null,
+
   created_at: '2024-03-23T12:43:18.446Z',
   id: '780340fb-33b2-4b27-a4df-8913286cbf8d',
   priceTotal: 38,
@@ -43,6 +43,7 @@ const mockOrder = {
         price: 27,
       },
       quantity: 2,
+      comment: null,
     },
     {
       product: {
@@ -54,6 +55,7 @@ const mockOrder = {
         price: 11,
       },
       quantity: 2,
+      comment: 'Sem cebola',
     },
   ],
   status: 'ordering',

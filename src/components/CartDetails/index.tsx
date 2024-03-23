@@ -30,6 +30,7 @@ export function CartDetails() {
                   name={order.product.name}
                   price={order.product.price}
                   quantity={order.quantity}
+                  comment={order.comment}
                 />
               ))
             : cart.map(cartItem => (
@@ -39,6 +40,7 @@ export function CartDetails() {
                   name={cartItem.products.name}
                   price={cartItem.products.price}
                   quantity={cartItem.quantity}
+                  comment={cartItem.products.comment}
                 />
               ))}
         </ul>
