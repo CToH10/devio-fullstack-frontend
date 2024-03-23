@@ -11,7 +11,10 @@ export function CartDetails() {
   const total =
     pathname === '/payment'
       ? payingOrder.priceTotal
-      : cart.reduce((acc, curr) => acc + curr.products.price, 0);
+      : cart.reduce(
+          (acc, curr) => acc + curr.products.price * curr.quantity,
+          0,
+        );
 
   return (
     <section
@@ -21,23 +24,23 @@ export function CartDetails() {
         <ul>
           {pathname === '/payment'
             ? payingOrder.product_orders.map(order => (
-              <CartOrderItem
-                id={order.product.id}
-                key={order.product.id}
-                name={order.product.name}
-                price={order.product.price}
-                quantity={order.quantity}
-              />
-            ))
+                <CartOrderItem
+                  id={order.product.id}
+                  key={order.product.id}
+                  name={order.product.name}
+                  price={order.product.price}
+                  quantity={order.quantity}
+                />
+              ))
             : cart.map(cartItem => (
-              <CartOrderItem
-                key={cartItem.products.id}
-                id={cartItem.products.id}
-                name={cartItem.products.name}
-                price={cartItem.products.price}
-                quantity={cartItem.quantity}
-              />
-            ))}
+                <CartOrderItem
+                  key={cartItem.products.id}
+                  id={cartItem.products.id}
+                  name={cartItem.products.name}
+                  price={cartItem.products.price}
+                  quantity={cartItem.quantity}
+                />
+              ))}
         </ul>
       </section>
       <hr className="border-t border-dashed border-grey-4 border-opacity-40" />
