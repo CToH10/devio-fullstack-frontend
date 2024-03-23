@@ -1,7 +1,13 @@
+'use client';
+
 import { CartOrderItem } from '@/components/CartDetails/OrderItem';
 import { ProductQuantityInput } from '@/components/Input/ProductQuantityInput';
+import { useApi } from '@/context/apiContext';
 import { ProductInterface } from '@/interfaces/product.interface';
+import { ProdToCartType, prodToCartSchema } from '@/schema/productOrder.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
+import { useForm } from 'react-hook-form';
 
 interface ConfirmInterface extends ProductInterface {
   onClose: () => void;
@@ -20,15 +26,31 @@ export function ProductConfirm({
   const quantity: number = 1;
   const total: number = quantity * price;
 
-  const onSubmit = () => {
-    // handle data
-    const requestBody = {
+  const { addToCart } = useApi();
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<ProdToCartType>({
+    resolver: zodResolver(prodToCartSchema),
+    mode: 'onBlur',
+    defaultValues: {
       products: {
-        product_id: id,
-        quantity,
-        // comment
+        id,
+        name,
+        price,
+        combo,
+        category,
+        description,
+        cover_image: image,
       },
-    };
+    },
+  });
+
+  const onSubmit = (data: ProdToCartType) => {
+    // addToCart(data);
+    console.log(data);
   };
   return (
     <>
@@ -47,7 +69,10 @@ export function ProductConfirm({
             <h4 className="text-size_8_14 text-grey-3 font-normal">
               {description}
             </h4>
-            <ProductQuantityInput />
+            <ProductQuantityInput
+              register={register('quantity')}
+              error={errors.quantity?.message}
+            />
           </section>
           <h4 className="text-size_7_16 text-grey-1 font-bold">
             {price.toLocaleString('pt-BR', {
@@ -64,11 +89,14 @@ export function ProductConfirm({
         >
           Observações
           <textarea
-            name="comment"
             id="comment"
             placeholder="Adicione uma observação ao pedido"
             className="resize-none w-full placeholder:font-normal min-h-32"
+            {...register('products.comment')}
           />
+          {errors && (
+            <span className="error">{errors.products?.comment?.message}</span>
+          )}
         </label>
       </form>
       <section className="border-2 border-grey-5 border-opacity-40 rounded px-12 py-3 w-full flex flex-col gap-1">
@@ -104,7 +132,11 @@ export function ProductConfirm({
         >
           Cancelar
         </button>
-        <button type="submit" className="btn-big btn-green">
+        <button
+          type="submit"
+          className="btn-big btn-green"
+          onClick={handleSubmit(onSubmit)}
+        >
           Adicionar ao pedido
         </button>
       </section>

@@ -155,4 +155,8 @@ image {
   .active-card {
     @apply text-green-3
   }
+
+  .error {
+    @apply text-size_9_12 font-normal text-red-3
+  }
 }
