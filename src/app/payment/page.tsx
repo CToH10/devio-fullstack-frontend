@@ -7,8 +7,8 @@ import { OrderButtons } from '@/components/OrderButtons';
 import { PaymentArea } from '@/components/PaymentArea';
 import { useApi } from '@/context/apiContext';
 import {
-  ProductOrderRequestType,
-  productOrderSchema,
+  OrderUpdateRequestType,
+  updateOrderSchema,
 } from '@/schema/productOrder.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
@@ -17,27 +17,20 @@ import { useForm } from 'react-hook-form';
 import { FaWallet } from 'react-icons/fa6';
 
 export default function Payment() {
-  const { emptyCart, cart } = useApi();
+  const { emptyCart } = useApi();
   const [show, setShow] = useState(false);
 
   const router = useRouter();
 
-  const defaultValuesCart = cart.map(prod => {
-    return {
-      products_id: prod.products.id,
-      quantity: prod.quantity,
-      comment: prod.products.comment,
-    };
-  });
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<ProductOrderRequestType>({
-    resolver: zodResolver(productOrderSchema),
+  } = useForm<OrderUpdateRequestType>({
+    resolver: zodResolver(updateOrderSchema),
     mode: 'onBlur',
     defaultValues: {
-      products: defaultValuesCart,
+      status: 'preparing',
     },
   });
 
@@ -46,7 +39,7 @@ export default function Payment() {
     router.push('/');
   };
 
-  const onSubmit = (data: ProductOrderRequestType) => {
+  const onSubmit = (data: OrderUpdateRequestType) => {
     console.log(data);
     emptyCart();
     setShow(true);

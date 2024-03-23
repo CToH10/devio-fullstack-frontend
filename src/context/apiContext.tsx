@@ -95,7 +95,7 @@ export function ApiProvider({ children }: Props) {
   const [checkoutOrders, setCheckoutOrders] = useState([] as OrderInterface[]);
   const [searchParam, setSearchParam] = useState('');
   const [cart, setCart] = useState([] as ProductOrderInterface[]);
-  const [payingOrder, setPayingOrder] = useState(mockOrder as OrderInterface);
+  const [payingOrder, setPayingOrder] = useState({} as OrderInterface);
   const [paymentMethod, setPaymentMethod] = useState('');
   const [money, setMoney] = useState(0);
 
