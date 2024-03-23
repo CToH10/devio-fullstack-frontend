@@ -1,5 +1,7 @@
 'use client';
 
+import { useApi } from '@/context/apiContext';
+import { usePathname } from 'next/navigation';
 
 interface OrderProps {
   disabled?: boolean;
@@ -12,8 +14,19 @@ export function OrderButtons({
   onClickCancel,
   onClickConfirm,
 }: OrderProps) {
+  const { money, payingOrder, paymentMethod } = useApi();
+  const pathname = usePathname();
+  const isDisabled =
+    (money < payingOrder.priceTotal && paymentMethod === 'cash') ||
+    paymentMethod === '';
+
+  const className =
+    pathname === '/payment'
+      ? 'flex flex-col lg:flex-row w-full gap-8 lg:justify-between lg:content'
+      : 'flex flex-col lg:flex-row w-full gap-8 lg:justify-between lg:w-2/3 lg:self-end';
+
   return (
-    <section className="flex flex-col lg:flex-row w-full gap-8 lg:justify-between lg:w-2/3 lg:self-end">
+    <section className={className}>
       <button
         type="button"
         className="btn-big btn-green-outline lg:w-5/12"
@@ -25,7 +38,7 @@ export function OrderButtons({
       <button
         type="button"
         className="btn-big btn-green lg:w-5/12"
-        disabled={disabled}
+        disabled={disabled || isDisabled}
         onClick={e => onClickConfirm(e)}
       >
         Finalizar pedido

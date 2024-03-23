@@ -11,11 +11,54 @@ import {
 } from '@/interfaces/product.interface';
 import { api } from '@/service/api';
 import { useRouter } from 'next/navigation';
-import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 
 interface Props {
   children: ReactNode;
 }
+
+const mockOrder = {
+  client: 'Nome não informado',
+  code: 36,
+  comment: null,
+  created_at: '2024-03-23T12:43:18.446Z',
+  id: '780340fb-33b2-4b27-a4df-8913286cbf8d',
+  priceTotal: 38,
+  product_orders: [
+    {
+      product: {
+        category: 'side',
+        cover_image:
+          'https://img.freepik.com/free-psd/fresh-beef-burger-isolated-transparent-background_191095-9018.jpg?size=338&ext=jpg&ga=GA1.1.2082370165.1710806400&semt=sph',
+        id: '4bea0274-23c2-437b-8751-9dd57f9197f2',
+        name: 'Hamburguinho da Casa',
+        price: 27,
+      },
+      quantity: 2,
+    },
+    {
+      product: {
+        category: 'dessert',
+        cover_image:
+          'https://img.freepik.com/free-psd/ice-cream-isolated-transparent-background_191095-10433.jpg?w=740&t=st=1710881622~exp=1710882222~hmac=8baab919c5f60d1cafa7cc7cd0b1601b46d10f2c5449e759f1bf8b2d6d15f2d7',
+        id: 'cae098ed-dd79-4158-8e6b-4087a9eaea0e',
+        name: 'Casquinha',
+        price: 11,
+      },
+      quantity: 2,
+    },
+  ],
+  status: 'ordering',
+  updated_at: '2024-03-23T12:43:18.446Z',
+};
 
 interface ApiProviderData {
   getAllProducts: (search: string) => Promise<ProductListInterface | undefined>;
@@ -34,6 +77,11 @@ interface ApiProviderData {
   emptyCart: () => void;
   makeOrder: () => Promise<OrderInterface | undefined>;
   payingOrder: OrderInterface;
+  paymentMethod: string;
+  money: number;
+  setPaymentMethod: Dispatch<SetStateAction<string>>;
+  setMoney: Dispatch<SetStateAction<number>>;
+  change: number;
 }
 
 export const ApiContext = createContext<ApiProviderData>({} as ApiProviderData);
@@ -45,12 +93,16 @@ export function ApiProvider({ children }: Props) {
   const [checkoutOrders, setCheckoutOrders] = useState([] as OrderInterface[]);
   const [searchParam, setSearchParam] = useState('');
   const [cart, setCart] = useState([] as ProductOrderInterface[]);
-  const [payingOrder, setPayingOrder] = useState({} as OrderInterface);
+  const [payingOrder, setPayingOrder] = useState(mockOrder as OrderInterface);
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [money, setMoney] = useState(0);
 
   const preparing = checkoutOrders.filter(
     order => order.status === 'preparing',
   );
   const ready = checkoutOrders.filter(order => order.status === 'ready');
+  const change =
+    money > payingOrder.priceTotal ? money - payingOrder.priceTotal : 0;
 
   const router = useRouter();
 
@@ -188,6 +240,11 @@ export function ApiProvider({ children }: Props) {
           emptyCart,
           makeOrder,
           payingOrder,
+          paymentMethod,
+          money,
+          setPaymentMethod,
+          setMoney,
+          change,
         }),
         [
           getAllProducts,
@@ -206,6 +263,11 @@ export function ApiProvider({ children }: Props) {
           emptyCart,
           makeOrder,
           payingOrder,
+          paymentMethod,
+          money,
+          setPaymentMethod,
+          setMoney,
+          change,
         ],
       )}
     >

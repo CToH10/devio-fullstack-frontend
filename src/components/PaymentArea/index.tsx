@@ -1,16 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useApi } from '@/context/apiContext';
 import { FaCreditCard, FaMoneyBill1 } from 'react-icons/fa6';
 
 export function PaymentArea() {
-  const [active, setActive] = useState('');
+  const { paymentMethod, setPaymentMethod, setMoney, change } = useApi();
 
   return (
-    <section className="flex items-center flex-col lg:max-w-96">
+    <section className="flex items-center flex-col">
       <form className="w-full flex flex-col gap-10">
         <section
-          className={`flex items-center px-6 py-2 rounded-lg border-2 border-grey-4 ${active === 'credit' ? 'border-green-2 border-opacity-70' : ''}`}
+          className={`flex items-center px-6 py-2 rounded-lg border-2 border-grey-4 ${paymentMethod === 'credit' ? 'border-green-2 border-opacity-70' : ''}`}
         >
           <label
             htmlFor="credit"
@@ -24,12 +24,12 @@ export function PaymentArea() {
               id="credit"
               name="paymentMethod"
               value="credit"
-              onClick={e => setActive(e.currentTarget.value)}
+              onClick={e => setPaymentMethod(e.currentTarget.value)}
             />
           </label>
         </section>
         <section
-          className={`flex items-center px-6 py-2 rounded-lg border-2 border-grey-4 ${active === 'debit' ? 'border-green-2 border-opacity-70' : ''}`}
+          className={`flex items-center px-6 py-2 rounded-lg border-2 border-grey-4 ${paymentMethod === 'debit' ? 'border-green-2 border-opacity-70' : ''}`}
         >
           <label
             htmlFor="debit"
@@ -43,12 +43,12 @@ export function PaymentArea() {
               id="debit"
               name="paymentMethod"
               value="debit"
-              onClick={e => setActive(e.currentTarget.value)}
+              onClick={e => setPaymentMethod(e.currentTarget.value)}
             />
           </label>
         </section>
         <section
-          className={`flex items-center px-6 py-2 rounded-lg border-2 border-grey-4 ${active === 'cash' ? 'border-green-2 border-opacity-70' : ''}`}
+          className={`flex items-center px-6 py-2 rounded-lg border-2 border-grey-4 ${paymentMethod === 'cash' ? 'border-green-2 border-opacity-70' : ''}`}
         >
           <label
             htmlFor="cash"
@@ -62,7 +62,45 @@ export function PaymentArea() {
               id="cash"
               name="paymentMethod"
               value="cash"
-              onClick={e => setActive(e.currentTarget.value)}
+              onClick={e => setPaymentMethod(e.currentTarget.value)}
+            />
+          </label>
+        </section>
+        <section className="flex flex-col gap-5 lg:flex-row lg:justify-between lg:gap-0">
+          <label
+            htmlFor="paying"
+            className="flex flex-col  text-size_7_16 text-grey-1 font-bold gap-2 lg:w-[47%] relative"
+          >
+            Valor entregue
+            <input
+              type="number"
+              name="paying"
+              id="paying"
+              placeholder="Valor entregue"
+              disabled={paymentMethod !== 'cash'}
+              step={0.5}
+              onInput={e => setMoney(Number(e.currentTarget.value))}
+              className="w-full pl-8"
+            />
+            <span className="absolute left-2 bottom-[0.835rem] font-normal text-size_8_14">
+              R$
+            </span>
+          </label>
+          <label
+            htmlFor="change"
+            className="flex flex-col  text-size_7_16 text-grey-1 font-bold gap-2 lg:w-[47%]"
+          >
+            Troco
+            <input
+              type="text"
+              name="change"
+              id="change"
+              disabled
+              value={change.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              })}
+              className="w-full"
             />
           </label>
         </section>
