@@ -15,6 +15,11 @@ export interface ProductListInterface {
   nextPage: string | undefined;
 }
 
+export interface ProductOrderInterface {
+  products: ProductInterface;
+  quantity: number;
+}
+
 export interface OrderInterface {
   client: string;
   comment: string | null;

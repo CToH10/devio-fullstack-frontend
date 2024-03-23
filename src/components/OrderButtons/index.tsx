@@ -38,7 +38,7 @@ export function OrderButtons({
       <button
         type="button"
         className="btn-big btn-green lg:w-5/12"
-        disabled={disabled || isDisabled}
+        disabled={pathname === '/payment' ? isDisabled : disabled}
         onClick={e => onClickConfirm(e)}
       >
         Finalizar pedido

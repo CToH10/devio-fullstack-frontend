@@ -24,7 +24,7 @@ export default function Payment() {
         </span>
         <h2 className="text-size_5_24 font-bold text-grey-1">Pagamento</h2>
       </section>
-      <section className="w-full">
+      <section className="w-full mb-3 lg:mb-0">
         <section>
           <h3 className="text-size_7_16 font-bold text-grey-1 mb-2">
             Resumo da compra
@@ -32,7 +32,7 @@ export default function Payment() {
           <CartDetails />
         </section>
       </section>
-      <section className="w-full">
+      <section className="w-full mb-3 lg:mb-0">
         <h3 className="text-size_7_16 font-bold text-grey-1 mb-2">
           Selecione a forma de pagamento
         </h3>
