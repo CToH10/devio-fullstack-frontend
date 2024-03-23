@@ -2,10 +2,11 @@
 
 import { Modal } from '@/components/Modal';
 import { useApi } from '@/context/apiContext';
-import { ProductInterface } from '@/interfaces/product.interface';
+import { ProductInterface } from '@/interfaces/interface';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FaCheck } from 'react-icons/fa6';
+import { ProductConfirm } from './ProductConfirm';
 
 export function ProductCard({
   cover_image: image,
@@ -91,8 +92,18 @@ export function ProductCard({
         )}
       </li>
       {show && (
-        <Modal title="Mock title" onClose={() => setShow(false)}>
-          <p>{name}</p>
+        <Modal title="Revise seu pedido!" onClose={() => setShow(false)}>
+          <ProductConfirm
+            name={name}
+            category={category}
+            price={price}
+            description={description}
+            cover_image={image}
+            id={id}
+            combo={combo}
+            key={id}
+            onClose={() => setShow(false)}
+          />
         </Modal>
       )}
     </>

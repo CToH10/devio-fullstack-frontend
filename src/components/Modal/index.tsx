@@ -13,14 +13,12 @@ export function Modal({
 }) {
   return (
     <section className="modal fixed inset-0 bg-grey-5 bg-opacity-50 backdrop-blur-sm overflow-y-auto h-full w-full flex items-center justify-center z-50">
-      <section className="p-8 border-none w-4/5 shadow-lg rounded-xl bg-whiteFixed relative">
+      <section className="p-8 border-none w-4/5 shadow-lg rounded-xl bg-whiteFixed relative flex flex-col gap-4 max-h-[600px] overflow-y-auto scrollbar">
         <section className="text-start pl-2">
           <h3 className="text-size_4_28 font-bold text-gray-900">{title}</h3>
         </section>
         <section className="flex justify-center mt-4">
-          <section className="mt-2 px-7 py-3">
-            <p className="text-lg text-gray-500">{children}</p>
-          </section>
+          <section className="w-full flex flex-col gap-5">{children}</section>
           <button
             type="button"
             onClick={onClose}
