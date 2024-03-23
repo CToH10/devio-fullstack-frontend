@@ -10,7 +10,7 @@ export function PaymentArea() {
     <section className="flex items-center flex-col lg:max-w-96">
       <form className="w-full flex flex-col gap-10">
         <section
-          className={`flex items-center px-12 py-6 rounded-lg border-2 border-grey-4 ${active === 'credit' ? 'border-green-2 border-opacity-70' : ''}`}
+          className={`flex items-center px-6 py-2 rounded-lg border-2 border-grey-4 ${active === 'credit' ? 'border-green-2 border-opacity-70' : ''}`}
         >
           <label
             htmlFor="credit"
@@ -29,7 +29,7 @@ export function PaymentArea() {
           </label>
         </section>
         <section
-          className={`flex items-center px-12 py-6 rounded-lg border-2 border-grey-4 ${active === 'debit' ? 'border-green-2 border-opacity-70' : ''}`}
+          className={`flex items-center px-6 py-2 rounded-lg border-2 border-grey-4 ${active === 'debit' ? 'border-green-2 border-opacity-70' : ''}`}
         >
           <label
             htmlFor="debit"
@@ -48,7 +48,7 @@ export function PaymentArea() {
           </label>
         </section>
         <section
-          className={`flex items-center px-12 py-6 rounded-lg border-2 border-grey-4 ${active === 'cash' ? 'border-green-2 border-opacity-70' : ''}`}
+          className={`flex items-center px-6 py-2 rounded-lg border-2 border-grey-4 ${active === 'cash' ? 'border-green-2 border-opacity-70' : ''}`}
         >
           <label
             htmlFor="cash"
