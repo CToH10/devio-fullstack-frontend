@@ -2,11 +2,11 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface Props {
   register?: UseFormRegisterReturn;
-
+  code: number;
   error?: string;
 }
 
-export function ClientInput({ error, register }: Props) {
+export function ClientInput({ error, register, code }: Props) {
   return (
     <section className="flex flex-col w-full max-w-96 lg:flex-row lg:justify-between lg:mt-2">
       <fieldset className="w-full lg:w-8/12">
@@ -31,7 +31,13 @@ export function ClientInput({ error, register }: Props) {
           className="flex flex-col w-full text-grey-1 font-bold text-size_7_16"
         >
           Código
-          <input type="text" className="w-full" id="code" disabled />
+          <input
+            type="text"
+            className="w-full"
+            id="code"
+            disabled
+            defaultValue={code}
+          />
         </label>
       </fieldset>
     </section>

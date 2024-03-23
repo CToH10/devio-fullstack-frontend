@@ -9,7 +9,9 @@ import {
   ProductListInterface,
   ProductOrderInterface,
 } from '@/interfaces/product.interface';
+import { OrderUpdateRequestType } from '@/schema/productOrder.schema';
 import { api } from '@/service/api';
+import { AxiosResponse } from 'axios';
 import { useRouter } from 'next/navigation';
 import {
   Dispatch,
@@ -84,6 +86,10 @@ interface ApiProviderData {
   setPaymentMethod: Dispatch<SetStateAction<string>>;
   setMoney: Dispatch<SetStateAction<number>>;
   change: number;
+  updateOrder: (
+    data: OrderUpdateRequestType,
+    id: string,
+  ) => Promise<AxiosResponse<any, any> | undefined>;
 }
 
 export const ApiContext = createContext<ApiProviderData>({} as ApiProviderData);
@@ -222,6 +228,16 @@ export function ApiProvider({ children }: Props) {
     }
   };
 
+  const updateOrder = async (data: OrderUpdateRequestType, id: string) => {
+    try {
+      const order = await api.patch(`/orders/${id}`, data);
+
+      return order;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <ApiContext.Provider
       value={useMemo(
@@ -247,6 +263,7 @@ export function ApiProvider({ children }: Props) {
           setPaymentMethod,
           setMoney,
           change,
+          updateOrder,
         }),
         [
           getAllProducts,
@@ -270,6 +287,7 @@ export function ApiProvider({ children }: Props) {
           setPaymentMethod,
           setMoney,
           change,
+          updateOrder,
         ],
       )}
     >

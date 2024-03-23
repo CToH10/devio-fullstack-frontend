@@ -17,7 +17,7 @@ import { useForm } from 'react-hook-form';
 import { FaWallet } from 'react-icons/fa6';
 
 export default function Payment() {
-  const { emptyCart } = useApi();
+  const { emptyCart, payingOrder, updateOrder } = useApi();
   const [show, setShow] = useState(false);
 
   const router = useRouter();
@@ -35,12 +35,17 @@ export default function Payment() {
   });
 
   const paymentEmpty = () => {
+    updateOrder(
+      { status: 'refused', client: payingOrder.client },
+      payingOrder.id,
+    );
     emptyCart();
     router.push('/');
   };
 
   const onSubmit = (data: OrderUpdateRequestType) => {
     console.log(data);
+    updateOrder(data, payingOrder.id);
     emptyCart();
     setShow(true);
   };
@@ -63,6 +68,7 @@ export default function Payment() {
             <ClientInput
               error={errors.client?.message}
               register={register('client')}
+              code={payingOrder.code}
             />
           </section>
         </section>
