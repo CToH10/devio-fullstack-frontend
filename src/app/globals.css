@@ -72,6 +72,12 @@ image {
   input:focus, textarea:focus {
     @apply outline-none border-grey-4
   }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 @layer components {
