@@ -2,7 +2,6 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface Props {
   register?: UseFormRegisterReturn;
-
   error?: string;
 }
 

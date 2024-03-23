@@ -1,7 +1,7 @@
 'use client';
 
 import { CartOrderItem } from '@/components/CartDetails/OrderItem';
-import { ProductQuantityInput } from '@/components/Input/ProductQuantityInput';
+import { ProductQuantityInput } from '@/components/ProductsList/ProductCard/ProductConfirm/ProductQuantityInput';
 import { useApi } from '@/context/apiContext';
 import { ProductInterface } from '@/interfaces/product.interface';
 import { ProdToCartType, prodToCartSchema } from '@/schema/productOrder.schema';

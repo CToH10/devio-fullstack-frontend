@@ -1,26 +1,53 @@
 'use client';
 
 import { CartDetails } from '@/components/CartDetails';
+import { ClientInput } from '@/components/ClientInput';
 import { Modal } from '@/components/Modal';
 import { OrderButtons } from '@/components/OrderButtons';
 import { PaymentArea } from '@/components/PaymentArea';
 import { useApi } from '@/context/apiContext';
+import {
+  ProductOrderRequestType,
+  productOrderSchema,
+} from '@/schema/productOrder.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { FaWallet } from 'react-icons/fa6';
 
 export default function Payment() {
-  const { getAvailableOrders, emptyCart } = useApi();
-  const router = useRouter();
+  const { emptyCart, cart } = useApi();
   const [show, setShow] = useState(false);
+
+  const router = useRouter();
+
+  const defaultValuesCart = cart.map(prod => {
+    return {
+      products_id: prod.products.id,
+      quantity: prod.quantity,
+      comment: prod.products.comment,
+    };
+  });
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<ProductOrderRequestType>({
+    resolver: zodResolver(productOrderSchema),
+    mode: 'onBlur',
+    defaultValues: {
+      products: defaultValuesCart,
+    },
+  });
 
   const paymentEmpty = () => {
     emptyCart();
     router.push('/');
   };
 
-  const confirmPurchase = () => {
-    getAvailableOrders();
+  const onSubmit = (data: ProductOrderRequestType) => {
+    console.log(data);
     emptyCart();
     setShow(true);
   };
@@ -40,6 +67,10 @@ export default function Payment() {
               Resumo da compra
             </h3>
             <CartDetails />
+            <ClientInput
+              error={errors.client?.message}
+              register={register('client')}
+            />
           </section>
         </section>
         <section className="w-full mb-3 lg:mb-0">
@@ -51,7 +82,7 @@ export default function Payment() {
         <section className="col-[2] w-full">
           <OrderButtons
             onClickCancel={paymentEmpty}
-            onClickConfirm={confirmPurchase}
+            onClickConfirm={handleSubmit(onSubmit)}
           />
         </section>
       </section>
