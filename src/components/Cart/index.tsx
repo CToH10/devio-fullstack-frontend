@@ -1,6 +1,7 @@
 'use client';
 
 import { useApi } from '@/context/apiContext';
+import { CartDetails } from '../CartDetails';
 import { OrderButtons } from '../OrderButtons';
 
 export function Cart() {
@@ -8,9 +9,7 @@ export function Cart() {
 
   return (
     <>
-      <section className="w-full">
-        <p>Empty space for now</p>
-      </section>
+      <section className="w-full">{cart.length > 0 && <CartDetails />}</section>
       <OrderButtons
         disabled={cart.length === 0}
         onClickCancel={emptyCart}

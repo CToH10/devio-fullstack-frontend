@@ -141,7 +141,6 @@ export function ApiProvider({ children }: Props) {
 
   const emptyCart = (payment?: boolean) => {
     setCart([]);
-    console.log(payment);
 
     if (payment) {
       router.push('/');
