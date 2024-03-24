@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ['@tanstack/query-core'],
   env: {
     api_base_url: 'http://localhost:3001/',
   },

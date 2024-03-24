@@ -6,11 +6,14 @@ import { Modal } from '@/components/Modal';
 import { OrderButtons } from '@/components/OrderButtons';
 import { PaymentArea } from '@/components/PaymentArea';
 import { useApi } from '@/context/apiContext';
+import { PrinterComponent } from '@/components/print';
+import { queryClient } from '@/components/print/queryClient';
 import {
   OrderUpdateRequestType,
   updateOrderSchema,
 } from '@/schema/productOrder.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -54,7 +57,7 @@ export default function Payment() {
     router.push('/checkout');
   };
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <section className="w-full lg:grid grid-cols-2 gap-y-5">
         <section className="flex gap-5 items-center col-span-2 mb-3 lg:mb-0">
           <span>
@@ -96,6 +99,7 @@ export default function Payment() {
           <p>O pedido foi encaminhado para a cozinha</p>
         </Modal>
       )}
-    </>
+      <PrinterComponent />
+    </QueryClientProvider>
   );
 }
