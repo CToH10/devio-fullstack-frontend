@@ -1,5 +1,10 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { FaWallet } from 'react-icons/fa6';
 import { CartDetails } from '@/components/CartDetails';
 import { ClientInput } from '@/components/ClientInput';
 import { Modal } from '@/components/Modal';
@@ -10,11 +15,6 @@ import {
   OrderUpdateRequestType,
   updateOrderSchema,
 } from '@/schema/productOrder.schema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { FaWallet } from 'react-icons/fa6';
 
 export default function Payment() {
   const { emptyCart, payingOrder, updateOrder } = useApi();

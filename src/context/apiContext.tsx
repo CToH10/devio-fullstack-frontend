@@ -2,6 +2,16 @@
 
 'use client';
 
+import { useRouter } from 'next/navigation';
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 import {
   AdditionalItemInterface,
   OrderInterface,
@@ -15,58 +25,10 @@ import {
   RefusedOrderType,
 } from '@/schema/productOrder.schema';
 import { api } from '@/service/api';
-import { AxiosResponse } from 'axios';
-import { useRouter } from 'next/navigation';
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
 
 interface Props {
   children: ReactNode;
 }
-
-const mockOrder = {
-  client: 'Nome não informado',
-  code: 36,
-
-  created_at: '2024-03-23T12:43:18.446Z',
-  id: '780340fb-33b2-4b27-a4df-8913286cbf8d',
-  priceTotal: 38,
-  product_orders: [
-    {
-      product: {
-        category: 'side',
-        cover_image:
-          'https://img.freepik.com/free-psd/fresh-beef-burger-isolated-transparent-background_191095-9018.jpg?size=338&ext=jpg&ga=GA1.1.2082370165.1710806400&semt=sph',
-        id: '4bea0274-23c2-437b-8751-9dd57f9197f2',
-        name: 'Hamburguinho da Casa',
-        price: 27,
-      },
-      quantity: 2,
-      comment: null,
-    },
-    {
-      product: {
-        category: 'dessert',
-        cover_image:
-          'https://img.freepik.com/free-psd/ice-cream-isolated-transparent-background_191095-10433.jpg?w=740&t=st=1710881622~exp=1710882222~hmac=8baab919c5f60d1cafa7cc7cd0b1601b46d10f2c5449e759f1bf8b2d6d15f2d7',
-        id: 'cae098ed-dd79-4158-8e6b-4087a9eaea0e',
-        name: 'Casquinha',
-        price: 11,
-      },
-      quantity: 2,
-      comment: 'Sem cebola',
-    },
-  ],
-  status: 'ordering',
-  updated_at: '2024-03-23T12:43:18.446Z',
-};
 
 interface ApiProviderData {
   getAllProducts: (search: string) => Promise<ProductListInterface | undefined>;
@@ -93,7 +55,7 @@ interface ApiProviderData {
   updateOrder: (
     data: OrderUpdateRequestType,
     id: string,
-  ) => Promise<AxiosResponse<any, any> | undefined>;
+  ) => Promise<OrderInterface | undefined>;
   getAdditionals: () => Promise<AdditionalItemInterface[] | undefined>;
   additionals: AdditionalItemInterface[];
 }
@@ -221,9 +183,9 @@ export function ApiProvider({ children }: Props) {
         products: cart.map(ele => {
           const additionalsObj = ele.products.additionals
             ? [
-              ele.products.additionals &&
-              JSON.parse(ele.products.additionals).id,
-            ]
+                ele.products.additionals &&
+                  JSON.parse(ele.products.additionals).id,
+              ]
             : null;
 
           return {
@@ -248,9 +210,12 @@ export function ApiProvider({ children }: Props) {
     }
   };
 
-  const updateOrder = async (data: OrderUpdateRequestType, id: string) => {
+  const updateOrder = async (
+    data: OrderUpdateRequestType,
+    id: string,
+  ): Promise<OrderInterface | undefined> => {
     try {
-      const order = await api.patch(`/orders/${id}`, data);
+      const order = await (await api.patch(`/orders/${id}`, data)).data;
 
       return order;
     } catch (error) {

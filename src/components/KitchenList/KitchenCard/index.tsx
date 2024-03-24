@@ -1,12 +1,12 @@
 'use client';
 
+import Image from 'next/image';
+import { useState } from 'react';
+import { FaCheck, FaX } from 'react-icons/fa6';
 import { Modal } from '@/components/Modal';
 import { RefuseOrder } from '@/components/RefuseOrder';
 import { useApi } from '@/context/apiContext';
 import { OrderInterface } from '@/interfaces/product.interface';
-import Image from 'next/image';
-import { useState } from 'react';
-import { FaCheck, FaX } from 'react-icons/fa6';
 
 export function KitchenCard({
   client,

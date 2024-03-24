@@ -1,11 +1,11 @@
 'use client';
 
-import { Modal } from '@/components/Modal';
-import { useApi } from '@/context/apiContext';
-import { ProductInterface } from '@/interfaces/interface';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FaCheck } from 'react-icons/fa6';
+import { Modal } from '@/components/Modal';
+import { useApi } from '@/context/apiContext';
+import { ProductInterface } from '@/interfaces/interface';
 import { ProductConfirm } from './ProductConfirm';
 
 export function ProductCard({

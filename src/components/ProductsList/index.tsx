@@ -1,7 +1,7 @@
 'use client';
 
-import { useApi } from '@/context/apiContext';
 import { useEffect } from 'react';
+import { useApi } from '@/context/apiContext';
 import { TitleDescriptionSection } from '../TitleDescSect';
 import { ProductCard } from './ProductCard';
 

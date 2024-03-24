@@ -1,6 +1,6 @@
-import { AdditionalItemInterface } from '@/interfaces/product.interface';
 import Image from 'next/image';
 import { UseFormRegisterReturn } from 'react-hook-form';
+import { AdditionalItemInterface } from '@/interfaces/product.interface';
 
 interface Props {
   addList: AdditionalItemInterface[];
