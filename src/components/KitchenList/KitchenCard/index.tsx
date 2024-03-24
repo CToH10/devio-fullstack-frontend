@@ -89,7 +89,7 @@ export function KitchenCard({
             </h5>{' '}
             {productOrderList.map(
               prodOrder =>
-                prodOrder.additionals && (
+                prodOrder.additionals[0] && (
                   <p
                     className="text-size_9_12 px-5 py-2 border-2 border-grey-2 border-opacity-50 rounded"
                     key={
