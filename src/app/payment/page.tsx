@@ -44,7 +44,6 @@ export default function Payment() {
   };
 
   const onSubmit = (data: OrderUpdateRequestType) => {
-    console.log(data);
     updateOrder(data, payingOrder.id);
     emptyCart();
     setShow(true);
