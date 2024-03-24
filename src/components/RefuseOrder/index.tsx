@@ -33,7 +33,7 @@ export function RefuseOrder({ id, onClose }: Props) {
     >
       <label
         htmlFor="reason_of_refusal"
-        className="text-size_7_16 text-grey-1 font-semibold flex flex-col gap-2 w-4/5"
+        className="text-size_7_16 text-grey-1 font-semibold flex flex-col gap-2 w-full lg:w-4/5"
       >
         Motivo
         <input
@@ -41,12 +41,13 @@ export function RefuseOrder({ id, onClose }: Props) {
           id="reason_of_refusal"
           placeholder="Razão"
           {...register('reason_of_refusal')}
+          className="w-full"
         />
         {errors && (
           <span className="error">{errors.reason_of_refusal?.message}</span>
         )}
       </label>
-      <section className="w-4/5 flex flex-col gap-2 lg:flex-row">
+      <section className="w-full flex flex-col gap-2 lg:flex-row lg:w-4/5 lg:justify-end">
         <button
           type="button"
           className="btn-big btn-green-outline"
