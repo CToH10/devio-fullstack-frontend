@@ -12,11 +12,11 @@ export function KitchenList() {
   }, []);
   return (
     <section className="w-full flex flex-col gap-3 lg:flex-row justify-between h-full">
-      <section className="w-full lg:w-5/12 flex flex-col gap-2 min-h-72 lg:min-h-0 max-h-72 lg:max-h-[90%] overflow-auto scrollbar">
+      <section className="w-full lg:w-5/12 flex flex-col gap-2 min-h-72 lg:min-h-0 max-h-72 lg:max-h-[600px] overflow-auto scrollbar  lg:scrollbar-none">
         <h2 className="text-size_4_28 font-bold text-grey-1 sticky top-0 bg-whiteFixed">
           Preparando:
         </h2>
-        <ul className="flex flex-col gap-3">
+        <ul className="flex flex-col gap-3 lg:overflow-auto lg:scrollbar-none">
           {preparing.length ? (
             preparing.map(order => (
               <li key={order.id}>
@@ -42,11 +42,11 @@ export function KitchenList() {
         </ul>
       </section>
       <div className="border-2 bg-grey-1 rounded-lg h-1 border-grey-1 lg:min-h-[500px] lg:w-[2px] lg:border-none lg:bg-opacity-65" />
-      <section className="w-full lg:w-5/12 flex flex-col gap-2 min-h-72 lg:min-h-0 max-h-72 lg:max-h-[90%] overflow-auto scrollbar">
+      <section className="w-full lg:w-5/12 flex flex-col gap-2 min-h-72 lg:min-h-0 max-h-72 lg:max-h-[600px] overflow-auto scrollbar lg:scrollbar-none">
         <h2 className="text-size_4_28 font-bold text-grey-1 sticky top-0 bg-whiteFixed">
           Pronto:
         </h2>
-        <ul className="flex flex-col gap-3">
+        <ul className="flex flex-col gap-3 lg:overflow-auto lg:scrollbar-none">
           {ready.length ? (
             ready.map(order => (
               <li key={order.id} className="w-full">

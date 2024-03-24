@@ -49,6 +49,10 @@ export default function Payment() {
     setShow(true);
   };
 
+  const closeModal = () => {
+    setShow(false);
+    router.push('/checkout');
+  };
   return (
     <>
       <section className="w-full lg:grid grid-cols-2 gap-y-5">
@@ -87,7 +91,7 @@ export default function Payment() {
       {show && (
         <Modal
           title="Pedido finalizado com sucesso!"
-          onClose={() => setShow(false)}
+          onClose={() => closeModal()}
         >
           <p>O pedido foi encaminhado para a cozinha</p>
         </Modal>
