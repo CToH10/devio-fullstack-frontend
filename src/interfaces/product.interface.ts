@@ -48,3 +48,11 @@ export interface OrderListInterface {
 }
 
 export type RequestOrderInterface = Pick<OrderInterface, 'product_orders'>;
+
+export interface AdditionalItemInterface {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  cover_image: string;
+}

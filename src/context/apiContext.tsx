@@ -3,6 +3,7 @@
 'use client';
 
 import {
+  AdditionalItemInterface,
   OrderInterface,
   OrderListInterface,
   ProductInterface,
@@ -93,6 +94,8 @@ interface ApiProviderData {
     data: OrderUpdateRequestType,
     id: string,
   ) => Promise<AxiosResponse<any, any> | undefined>;
+  getAdditionals: () => Promise<AdditionalItemInterface[] | undefined>;
+  additionals: AdditionalItemInterface[];
 }
 
 export const ApiContext = createContext<ApiProviderData>({} as ApiProviderData);
@@ -107,6 +110,9 @@ export function ApiProvider({ children }: Props) {
   const [payingOrder, setPayingOrder] = useState({} as OrderInterface);
   const [paymentMethod, setPaymentMethod] = useState('');
   const [money, setMoney] = useState(0);
+  const [additionals, setAdditionals] = useState(
+    [] as AdditionalItemInterface[],
+  );
 
   const preparing = checkoutOrders.filter(
     order => order.status === 'preparing',
@@ -240,6 +246,20 @@ export function ApiProvider({ children }: Props) {
     }
   };
 
+  const getAdditionals = async (): Promise<
+    AdditionalItemInterface[] | undefined
+  > => {
+    try {
+      const addList = await (await api.get('/add')).data;
+
+      setAdditionals(addList);
+
+      return addList;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <ApiContext.Provider
       value={useMemo(
@@ -266,6 +286,8 @@ export function ApiProvider({ children }: Props) {
           setMoney,
           change,
           updateOrder,
+          getAdditionals,
+          additionals,
         }),
         [
           getAllProducts,
@@ -290,6 +312,8 @@ export function ApiProvider({ children }: Props) {
           setMoney,
           change,
           updateOrder,
+          getAdditionals,
+          additionals,
         ],
       )}
     >
