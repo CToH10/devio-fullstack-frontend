@@ -219,9 +219,21 @@ export function ApiProvider({ children }: Props) {
     try {
       const requestBody = {
         products: cart.map(ele => {
-          return { quantity: ele.quantity, products_id: ele.products.id };
+          const additionalsObj = ele.products.additionals
+            ? [
+              ele.products.additionals &&
+              JSON.parse(ele.products.additionals).id,
+            ]
+            : null;
+
+          return {
+            quantity: ele.quantity,
+            products_id: ele.products.id,
+            additionals: additionalsObj,
+          };
         }),
       };
+
       const order: OrderInterface = await (
         await api.post('/orders', requestBody)
       ).data;

@@ -10,6 +10,7 @@ export interface ProductInterface {
 
 interface ProductRequestInterface extends ProductInterface {
   comment: string | null;
+  additionals?: string | null;
 }
 
 export interface ProductListInterface {
@@ -34,6 +35,7 @@ export interface OrderInterface {
       product: Omit<ProductInterface, 'combo'>;
       quantity: number;
       comment: string | null;
+      additionals: string;
     },
   ];
   priceTotal: number;

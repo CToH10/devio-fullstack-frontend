@@ -94,7 +94,10 @@ export function ProductConfirm({
         </section>
       </section>
       <form className="flex flex-col gap-4">
-        <AdditionalItems addList={additionals} />
+        <AdditionalItems
+          addList={additionals}
+          register={register('products.additionals')}
+        />
         <label
           htmlFor="comment"
           className="text-size_7_16 text-grey-1 font-bold"

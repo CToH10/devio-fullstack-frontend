@@ -10,6 +10,7 @@ export const prodToCartSchema = z.object({
     name: z.string(),
     price: z.number(),
     comment: z.string().max(200).nullable(),
+    additionals: z.string().nullish(),
   }),
   quantity: z.preprocess(val => Number(val), z.number().min(1).max(20).int()),
 });
@@ -20,6 +21,7 @@ export const productOrderSchema = z.object({
       products_id: z.string(),
       quantity: z.number().min(0).int(),
       comment: z.string().max(200).nullish(),
+      additionals: z.array(z.string().max(50)).nullish(),
     }),
   ),
   client: z.string().max(120).default('Nome não informado').nullable(),
