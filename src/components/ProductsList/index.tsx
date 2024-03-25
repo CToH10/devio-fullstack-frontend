@@ -1,16 +1,25 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useApi } from '@/context/apiContext';
+import { OrderInterface } from '@/interfaces/product.interface';
+import { useEffect } from 'react';
 import { TitleDescriptionSection } from '../TitleDescSect';
 import { ProductCard } from './ProductCard';
 
 export function ProductsList() {
-  const { productsDisplay, getAllProducts } = useApi();
+  const {
+    productsDisplay,
+    getAllProducts,
+    setMoney,
+    setPayingOrder,
+    setPaymentMethod,
+  } = useApi();
 
   useEffect(() => {
     getAllProducts('');
-
+    setMoney(0);
+    setPaymentMethod('');
+    setPayingOrder({} as OrderInterface);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -2,16 +2,6 @@
 
 'use client';
 
-import { useRouter } from 'next/navigation';
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
 import {
   AdditionalItemInterface,
   OrderInterface,
@@ -25,6 +15,16 @@ import {
   RefusedOrderType,
 } from '@/schema/productOrder.schema';
 import { api } from '@/service/api';
+import { useRouter } from 'next/navigation';
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 
 interface Props {
   children: ReactNode;
@@ -58,6 +58,7 @@ interface ApiProviderData {
   ) => Promise<OrderInterface | undefined>;
   getAdditionals: () => Promise<AdditionalItemInterface[] | undefined>;
   additionals: AdditionalItemInterface[];
+  setPayingOrder: (value: SetStateAction<OrderInterface>) => void;
 }
 
 export const ApiContext = createContext<ApiProviderData>({} as ApiProviderData);
@@ -183,9 +184,9 @@ export function ApiProvider({ children }: Props) {
         products: cart.map(ele => {
           const additionalsObj = ele.products.additionals
             ? [
-                ele.products.additionals &&
-                  JSON.parse(ele.products.additionals).id,
-              ]
+              ele.products.additionals &&
+              JSON.parse(ele.products.additionals).id,
+            ]
             : null;
 
           return {
@@ -216,6 +217,10 @@ export function ApiProvider({ children }: Props) {
   ): Promise<OrderInterface | undefined> => {
     try {
       const order = await (await api.patch(`/orders/${id}`, data)).data;
+
+      if (data.status === 'preparing') {
+        setPayingOrder(order);
+      }
 
       return order;
     } catch (error) {
@@ -265,6 +270,7 @@ export function ApiProvider({ children }: Props) {
           updateOrder,
           getAdditionals,
           additionals,
+          setPayingOrder,
         }),
         [
           getAllProducts,
@@ -291,6 +297,7 @@ export function ApiProvider({ children }: Props) {
           updateOrder,
           getAdditionals,
           additionals,
+          setPayingOrder,
         ],
       )}
     >

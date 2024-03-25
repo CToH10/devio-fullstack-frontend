@@ -1,10 +1,5 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { FaWallet } from 'react-icons/fa6';
 import { CartDetails } from '@/components/CartDetails';
 import { ClientInput } from '@/components/ClientInput';
 import { Modal } from '@/components/Modal';
@@ -15,10 +10,17 @@ import {
   OrderUpdateRequestType,
   updateOrderSchema,
 } from '@/schema/productOrder.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { FaWallet } from 'react-icons/fa6';
 
 export function PaymentStructure() {
-  const { emptyCart, payingOrder, updateOrder } = useApi();
+  const { emptyCart, payingOrder, updateOrder, setPayingOrder } = useApi();
   const [show, setShow] = useState(false);
+
+  useEffect(() => { }, [payingOrder]);
 
   const router = useRouter();
 
@@ -43,15 +45,15 @@ export function PaymentStructure() {
     router.push('/');
   };
 
-  const onSubmit = (data: OrderUpdateRequestType) => {
-    updateOrder(data, payingOrder.id);
+  const onSubmit = async (data: OrderUpdateRequestType) => {
+    await updateOrder(data, payingOrder.id);
     emptyCart();
     setShow(true);
   };
 
   const closeModal = () => {
     setShow(false);
-    router.push('/checkout');
+    router.push('/');
   };
   return (
     <>
@@ -90,10 +92,33 @@ export function PaymentStructure() {
       </section>
       {show && (
         <Modal
-          title="Pedido finalizado com sucesso!"
+          title="Seu pedido foi realizado com sucesso!"
           onClose={() => closeModal()}
         >
-          <p>O pedido foi encaminhado para a cozinha</p>
+          <section className="w-full flex flex-col gap-5 lg:items-center">
+            <p className="text-size_7_16 text-grey-1 font-semibold">
+              O pedido foi encaminhado para a cozinha
+            </p>
+            <p className="text-size_7_16 text-grey-2 font-normal">
+              Imprimir nota?
+            </p>
+            <section className="flex flex-col lg:flex-row gap-1 lg:gap-5">
+              <button
+                type="button"
+                className="btn-big btn-red-light"
+                onClick={() => closeModal()}
+              >
+                Fechar
+              </button>
+              <button
+                type="button"
+                className="btn-big btn-green"
+                onClick={() => router.push('/payment/receipt')}
+              >
+                Imprimir
+              </button>
+            </section>
+          </section>
         </Modal>
       )}
     </>

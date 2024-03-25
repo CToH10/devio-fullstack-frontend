@@ -1,11 +1,10 @@
 import Link from 'next/link';
-import React from 'react';
 import { PiHamburger } from 'react-icons/pi';
 import { NavItems } from './Nav';
 
 export function Header() {
   return (
-    <header className="w-full min-h-[47px] bg-green-2 text-whiteFixed flex items-center justify-center">
+    <header className="w-full min-h-[47px] bg-green-2 text-whiteFixed flex items-center justify-center print:hidden">
       <div className="flex justify-between items-center w-4/5">
         <Link
           className="text-whiteFixed text-size_6_20 font-bold flex flex-row gap-2 items-center justify-center"
