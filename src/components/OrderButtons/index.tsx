@@ -1,7 +1,7 @@
 'use client';
 
-import { useApi } from '@/context/apiContext';
 import { usePathname } from 'next/navigation';
+import { useApi } from '@/context/apiContext';
 
 interface OrderProps {
   disabled?: boolean;

@@ -1,7 +1,7 @@
 'use client';
 
-import { useApi } from '@/context/apiContext';
 import { FaCreditCard, FaMoneyBill1 } from 'react-icons/fa6';
+import { useApi } from '@/context/apiContext';
 
 export function PaymentArea() {
   const { paymentMethod, setPaymentMethod, setMoney, change } = useApi();

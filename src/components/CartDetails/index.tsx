@@ -1,12 +1,30 @@
 'use client';
 
-import { useApi } from '@/context/apiContext';
 import { usePathname } from 'next/navigation';
+import { useApi } from '@/context/apiContext';
 import { CartOrderItem } from './OrderItem';
 
 export function CartDetails() {
   const { cart, payingOrder } = useApi();
   const pathname = usePathname();
+
+  const cartAdd =
+    cart &&
+    cart
+      .map((item, i) => {
+        if (
+          item.products.additionals &&
+          JSON.parse(item.products.additionals)
+        ) {
+          const cartQuant = cart[i].quantity;
+          const addPrice = JSON.parse(item.products.additionals).price;
+          return {
+            price: cartQuant * addPrice,
+          };
+        }
+        return { price: 0 };
+      })
+      .reduce((acc, curr) => acc + curr.price, 0);
 
   const total =
     pathname === '/payment'
@@ -14,7 +32,7 @@ export function CartDetails() {
       : cart.reduce(
           (acc, curr) => acc + curr.products.price * curr.quantity,
           0,
-        );
+        ) + cartAdd;
 
   return (
     <section
@@ -31,6 +49,7 @@ export function CartDetails() {
                   price={order.product.price}
                   quantity={order.quantity}
                   comment={order.comment}
+                  additionals={JSON.stringify(order.additionals[0])}
                 />
               ))
             : cart.map(cartItem => (
@@ -41,6 +60,7 @@ export function CartDetails() {
                   price={cartItem.products.price}
                   quantity={cartItem.quantity}
                   comment={cartItem.products.comment}
+                  additionals={cartItem.products.additionals}
                 />
               ))}
         </ul>

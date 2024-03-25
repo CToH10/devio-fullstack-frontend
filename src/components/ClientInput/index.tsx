@@ -3,7 +3,7 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 interface Props {
   register?: UseFormRegisterReturn;
   code: number;
-  error?: string;
+  error?: string | undefined;
 }
 
 export function ClientInput({ error, register, code }: Props) {

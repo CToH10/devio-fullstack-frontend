@@ -1,7 +1,7 @@
 'use client';
 
-import { useApi } from '@/context/apiContext';
 import { useState } from 'react';
+import { useApi } from '@/context/apiContext';
 
 export function CategoryCard({
   name,

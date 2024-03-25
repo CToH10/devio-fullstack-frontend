@@ -1,12 +1,12 @@
 'use client';
 
+import Image from 'next/image';
+import { useState } from 'react';
+import { FaCheck, FaX } from 'react-icons/fa6';
 import { Modal } from '@/components/Modal';
 import { RefuseOrder } from '@/components/RefuseOrder';
 import { useApi } from '@/context/apiContext';
 import { OrderInterface } from '@/interfaces/product.interface';
-import Image from 'next/image';
-import { useState } from 'react';
-import { FaCheck, FaX } from 'react-icons/fa6';
 
 export function KitchenCard({
   client,
@@ -15,7 +15,7 @@ export function KitchenCard({
   status,
   product_orders: productOrderList,
 }: OrderInterface) {
-  const { orderReady, orderFinished, orderRefused } = useApi();
+  const { orderReady, orderFinished } = useApi();
   const [show, setShow] = useState(false);
 
   return (
@@ -81,12 +81,32 @@ export function KitchenCard({
           )}
         </section>
       )}
+      {status !== 'ready' &&
+        productOrderList.some(prod => prod.additionals.length > 0) && (
+          <section className="p-3 flex flex-col gap-2">
+            <h5 className="text-size_8_14 font-bold text-grey-1">
+              Adicionais:
+            </h5>{' '}
+            {productOrderList.map(
+              prodOrder =>
+                prodOrder.additionals[0] && (
+                  <p
+                    className="text-size_9_12 px-5 py-2 border-2 border-grey-2 border-opacity-50 rounded"
+                    key={
+                      prodOrder.product.id +
+                      String(prodOrder.additionals[0]?.additional.name)
+                    }
+                  >
+                    {prodOrder.product.name} {'- '}
+                    {prodOrder.additionals[0]?.additional.name}
+                  </p>
+                ),
+            )}
+          </section>
+        )}
       {show && (
         <Modal title="Motivo para recusar?" onClose={() => setShow(false)}>
-          <RefuseOrder
-            id={id}
-            onClose={() => setShow(false)}
-          />
+          <RefuseOrder id={id} onClose={() => setShow(false)} />
         </Modal>
       )}
     </>

@@ -10,6 +10,7 @@ export interface ProductInterface {
 
 interface ProductRequestInterface extends ProductInterface {
   comment: string | null;
+  additionals?: string | null | undefined;
 }
 
 export interface ProductListInterface {
@@ -34,6 +35,14 @@ export interface OrderInterface {
       product: Omit<ProductInterface, 'combo'>;
       quantity: number;
       comment: string | null;
+      additionals: [
+        {
+          additional: {
+            name: string;
+            price: number;
+          };
+        },
+      ];
     },
   ];
   priceTotal: number;
@@ -48,3 +57,11 @@ export interface OrderListInterface {
 }
 
 export type RequestOrderInterface = Pick<OrderInterface, 'product_orders'>;
+
+export interface AdditionalItemInterface {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  cover_image: string;
+}

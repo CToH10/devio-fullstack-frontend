@@ -1,13 +1,15 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { CartOrderItem } from '@/components/CartDetails/OrderItem';
 import { ProductQuantityInput } from '@/components/ProductsList/ProductCard/ProductConfirm/ProductQuantityInput';
 import { useApi } from '@/context/apiContext';
 import { ProductInterface } from '@/interfaces/product.interface';
 import { ProdToCartType, prodToCartSchema } from '@/schema/productOrder.schema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Image from 'next/image';
-import { useForm } from 'react-hook-form';
+import { AdditionalItems } from './AdditionalItem';
 
 interface ConfirmInterface extends ProductInterface {
   onClose: () => void;
@@ -23,7 +25,14 @@ export function ProductConfirm({
   combo,
   onClose,
 }: ConfirmInterface) {
-  const { addToCart } = useApi();
+  const { addToCart, getAdditionals, additionals } = useApi();
+
+  useEffect(() => {
+    const listAdditionals = async () => {
+      getAdditionals();
+    };
+    listAdditionals();
+  }, []);
 
   const {
     handleSubmit,
@@ -84,7 +93,11 @@ export function ProductConfirm({
           </h4>
         </section>
       </section>
-      <form>
+      <form className="flex flex-col gap-4">
+        <AdditionalItems
+          addList={additionals}
+          register={register('products.additionals')}
+        />
         <label
           htmlFor="comment"
           className="text-size_7_16 text-grey-1 font-bold"

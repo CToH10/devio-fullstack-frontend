@@ -2,7 +2,7 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface Props {
   register?: UseFormRegisterReturn;
-  error?: string;
+  error?: string | undefined;
 }
 
 export function ProductQuantityInput({ register, error }: Props) {
