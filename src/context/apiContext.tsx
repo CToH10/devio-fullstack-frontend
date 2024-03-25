@@ -2,6 +2,16 @@
 
 'use client';
 
+import { useRouter } from 'next/navigation';
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 import {
   AdditionalItemInterface,
   OrderInterface,
@@ -15,16 +25,6 @@ import {
   RefusedOrderType,
 } from '@/schema/productOrder.schema';
 import { api } from '@/service/api';
-import { useRouter } from 'next/navigation';
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
 
 interface Props {
   children: ReactNode;
@@ -184,9 +184,9 @@ export function ApiProvider({ children }: Props) {
         products: cart.map(ele => {
           const additionalsObj = ele.products.additionals
             ? [
-              ele.products.additionals &&
-              JSON.parse(ele.products.additionals).id,
-            ]
+                ele.products.additionals &&
+                  JSON.parse(ele.products.additionals).id,
+              ]
             : null;
 
           return {

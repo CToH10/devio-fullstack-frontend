@@ -1,7 +1,7 @@
 'use client';
 
-import { useApi } from '@/context/apiContext';
 import { Br, Cut, Line, Printer, Row, Text } from 'react-thermal-printer';
+import { useApi } from '@/context/apiContext';
 
 // comments are library recommended way of connecting to printer
 

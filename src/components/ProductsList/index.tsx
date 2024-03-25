@@ -1,8 +1,8 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useApi } from '@/context/apiContext';
 import { OrderInterface } from '@/interfaces/product.interface';
-import { useEffect } from 'react';
 import { TitleDescriptionSection } from '../TitleDescSect';
 import { ProductCard } from './ProductCard';
 
