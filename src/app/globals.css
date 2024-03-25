@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,26 +9,158 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-size: 100%;
+  vertical-align: baseline;
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+image {
+  width: 100%;
+  aspect-ratio: 3/2;
+  object-fit: contain;
+  mix-blend-mode: color-burn;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .scrollbar {
+    scroll-behavior: smooth;
+    scrollbar-color: #125C13 rgba(0, 0, 0, 0);
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 0.3rem;
+    height: 0.3rem;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    @apply bg-grey-1;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-grey-1;
+    border-radius: 100vh;
+    border: 1px solid #125C13;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-grey-1;
+  }
+
+  input, textarea {
+    @apply bg-grey-6 text-grey-1 font-normal text-size_8_14 w-max px-2 py-3 rounded-md border-2 border-grey-6 outline-none h-12
+  }
+
+  input::placeholder, textarea::placeholder {
+    @apply font-thin
+  }
+
+  input:focus, textarea:focus {
+    @apply outline-none border-grey-4
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+@layer components {
+  .input-style {
+    @apply bg-grey-6 text-grey-1 font-normal text-size_8_14 w-max px-2 py-3 rounded-md border-2 border-grey-6 outline-none h-12
+  }
+  .btn-big {
+    @apply px-7 h-12 rounded-2xl text-btnBig_16 min-w-min ;
+  }
+
+  .btn-medium {
+    @apply px-4 py-1 rounded-lg font-medium;
+  }
+
+  .btn-small {
+    @apply px-2 py-1 rounded text-size_8_14 h-8  font-medium;
+  }
+
+ .btn-green {
+    @apply bg-green-2 text-whiteFixed text-size_7_16 font-semibold border-2 border-green-2
+ }
+
+ .btn-green-outline {
+    @apply bg-whiteFixed text-green-2 border-2 border-green-2 text-size_7_16 font-semibold
+ }
+
+ .btn-green-light {
+    @apply bg-green-4 text-green-3
+ }
+
+ .btn-red-light {
+    @apply bg-red-2 text-red-1
+ }
+
+ .btn-green:hover {
+    @apply bg-green-1 border-green-1
+ }
+
+ .btn-green-outline:hover {
+    @apply text-green-1 border-green-1
+ }
+
+ .btn-green-light:hover {
+    @apply bg-green-3 text-green-4
+ }
+
+ .btn-red-light:hover {
+    @apply bg-red-1 text-red-2
+ }
+
+ .btn-green:disabled {
+    @apply bg-grey-4 text-whiteFixed border-grey-4
+  }
+
+  .btn-green-outline:disabled {
+    @apply border-grey-4 text-grey-4
+  }
+
+  .label {
+    @apply text-grey-1 font-bold
+  }
+
+  .product-card {
+    @apply [&:nth-child(n+9)]:bg-yellow [&:nth-child(n+5)]:bg-green-2 [&:nth-child(-n+4)]:bg-red-3
+  }
+
+  .active {
+    @apply bg-green-1
+  }
+
+  .active:hover {
+    @apply bg-green-2 border-green-1
+  }
+
+  .active-card {
+    @apply text-green-3
+  }
+
+  .error {
+    @apply text-size_9_12 font-normal text-red-3
   }
 }
