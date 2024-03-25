@@ -94,7 +94,7 @@ export function KitchenCard({
                     className="text-size_9_12 px-5 py-2 border-2 border-grey-2 border-opacity-50 rounded"
                     key={
                       prodOrder.product.id +
-                      prodOrder.additionals[0]?.additional.name
+                      String(prodOrder.additionals[0]?.additional.name)
                     }
                   >
                     {prodOrder.product.name} {'- '}

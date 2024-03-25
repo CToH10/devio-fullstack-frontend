@@ -35,7 +35,14 @@ export interface OrderInterface {
       product: Omit<ProductInterface, 'combo'>;
       quantity: number;
       comment: string | null;
-      additionals: string;
+      additionals: [
+        {
+          additional: {
+            name: string;
+            price: number;
+          };
+        },
+      ];
     },
   ];
   priceTotal: number;
