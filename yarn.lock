@@ -2752,10 +2752,10 @@ typed-array-length@^1.0.5:
     is-typed-array "^1.1.13"
     possible-typed-array-names "^1.0.0"
 
-typescript@^5.4.3:
-  version "5.4.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.4.3.tgz#5c6fedd4c87bee01cd7a528a30145521f8e0feff"
-  integrity sha512-KrPd3PKaCLr78MalgiwJnA25Nm8HAmdwN3mYUYZgG/wizIo9EainNVQI9/yDavtVFRN2h3k8uf3GLHuhDMgEHg==
+typescript@^5.2.0-dev.20230702:
+  version "5.2.0-dev.20230702"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.2.0-dev.20230702.tgz#48ae7428881973ebb57ad85de31f490f5321b1c6"
+  integrity sha512-ra+/LDcTNHM36hpRkzM7FwiJsb9axqLXesPIDlxp4FIzjVKIEcl7Tjq7sNGJUX6CiL148l32vwfsQtg1afOkWA==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"

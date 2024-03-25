@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { FaCheck } from 'react-icons/fa6';
 import { Modal } from '@/components/Modal';
 import { useApi } from '@/context/apiContext';
-import { ProductInterface } from '@/interfaces/interface';
+import { ProductInterface } from '@/interfaces/product.interface';
 import { ProductConfirm } from './ProductConfirm';
 
 export function ProductCard({
@@ -17,24 +17,12 @@ export function ProductCard({
   category,
   combo,
 }: ProductInterface) {
-  const { addToCart, cart, removeFromCart } = useApi();
+  const { cart, removeFromCart } = useApi();
   const inCart = cart
     .map(orderObj => orderObj.products)
     .map(cartProd => cartProd.id)
     .some(cartId => cartId === id);
 
-  const productOrder = {
-    products: {
-      cover_image: image,
-      description,
-      id,
-      name,
-      price,
-      category,
-      combo,
-    },
-    quantity: 1,
-  };
   const [show, setShow] = useState(false);
 
   return (
