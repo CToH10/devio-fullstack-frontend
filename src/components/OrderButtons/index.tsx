@@ -23,7 +23,7 @@ export function OrderButtons({
   const className =
     pathname === '/payment'
       ? 'flex flex-col lg:flex-row w-full gap-8 lg:justify-between lg:content'
-      : 'flex flex-col lg:flex-row w-full gap-8 lg:justify-between lg:w-2/3 lg:self-end';
+      : 'flex flex-col lg:flex-row w-full gap-8 lg:justify-between lg:w-2/3 lg:self-end mb-4';
 
   return (
     <section className={className}>

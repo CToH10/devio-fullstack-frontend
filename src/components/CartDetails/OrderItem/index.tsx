@@ -30,7 +30,7 @@ export function CartOrderItem({
         </p>
         {additionals && (
           <p className="text-size_9_12 font-light text-grey-3 w-[80%] overflow-hidden text-ellipsis text-nowrap">
-            + {add.name || add.additional.name}
+            + {quantity}x {add.name || add.additional.name}
           </p>
         )}
       </section>

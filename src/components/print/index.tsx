@@ -37,7 +37,7 @@ export function PrinterComponent() {
               <Row
                 className="flex w-80 justify-between text-size_8_14"
                 key={add.additional.name}
-                left={add.additional.name}
+                left={`${order.quantity}x ${add.additional.name}`}
                 right={add.additional.price.toLocaleString('pt-BR', {
                   currency: 'BRL',
                   style: 'currency',

@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaWallet } from 'react-icons/fa6';
 import { CartDetails } from '@/components/CartDetails';
@@ -19,8 +19,6 @@ import {
 export function PaymentStructure() {
   const { emptyCart, payingOrder, updateOrder } = useApi();
   const [show, setShow] = useState(false);
-
-  useEffect(() => {}, [payingOrder]);
 
   const router = useRouter();
 
