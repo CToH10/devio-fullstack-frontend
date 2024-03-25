@@ -10,7 +10,7 @@ export interface ProductInterface {
 
 interface ProductRequestInterface extends ProductInterface {
   comment: string | null;
-  additionals?: string | null;
+  additionals?: string | null | undefined;
 }
 
 export interface ProductListInterface {

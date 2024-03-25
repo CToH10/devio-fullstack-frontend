@@ -11,7 +11,7 @@ export function CartOrderItem({
   quantity: number;
   price: number;
   comment?: string | null;
-  additionals?: string | null;
+  additionals?: string | null | undefined;
 }) {
   const add = additionals && JSON.parse(additionals);
 
