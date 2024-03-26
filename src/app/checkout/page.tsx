@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useApi } from '@/context/apiContext';
+import { useEffect } from 'react';
 
 export default function Checkout() {
   const { getAvailableOrders, preparing, ready } = useApi();
@@ -21,7 +21,8 @@ export default function Checkout() {
             preparing.map(client => (
               <li key={client.id}>
                 <p className="text-size_1_56 font-bold text-grey-5 max-w-full overflow-hidden text-nowrap text-ellipsis">
-                  {client.client}
+                  {(client.client !== 'Nome não informado' && client.client) ||
+                    client.code}
                 </p>
               </li>
             ))
